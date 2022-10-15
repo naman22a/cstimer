@@ -21,4 +21,11 @@ export class UsersService {
     async create(user: CreateUserDto) {
         return await this.prisma.user.create({ data: user });
     }
+
+    async confirm(id: number) {
+        return await this.prisma.user.update({
+            where: { id },
+            data: { confirmed: true },
+        });
+    }
 }
