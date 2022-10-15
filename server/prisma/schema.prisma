@@ -49,7 +49,7 @@ model Solve {
   time       String
   scramble   String
   status     Status     @default(OK)
-  puzzleType PuzzleType
+  puzzleType PuzzleType @default(THREE)
   userId     Int
   user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   sessionId  Int
