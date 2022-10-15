@@ -1,11 +1,19 @@
-import { Body, Controller, Param, ParseUUIDPipe, Post } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Param,
+    ParseUUIDPipe,
+    Post,
+    Req,
+} from '@nestjs/common';
 import { OkResponse } from '../../types';
 import { UsersService } from '../../users/services/users.service';
-import { RegisterDto } from '../types';
+import { LoginDto, RegisterDto } from '../types';
 import * as argon2 from 'argon2';
 import { AuthService } from '../services/auth.service';
 import { redis } from '../../redis';
 import { CONFIRMATION_PREFIX } from '../../constants';
+import { Request } from 'express';
 
 @Controller('auth')
 export class AuthController {
@@ -56,6 +64,34 @@ export class AuthController {
 
         await this.usersService.confirm(user.id);
         await redis.del(CONFIRMATION_PREFIX + token);
+
+        return { ok: true };
+    }
+
+    @Post('login')
+    async login(
+        @Body() body: LoginDto,
+        @Req() req: Request,
+    ): Promise<OkResponse> {
+        const { email, password } = body;
+
+        const user = await this.usersService.findOneByEmail(email);
+        if (!user) {
+            return {
+                ok: false,
+                errors: [{ field: 'email', message: 'User not found' }],
+            };
+        }
+
+        const isMatch = await argon2.verify(user.password, password);
+        if (!isMatch) {
+            return {
+                ok: false,
+                errors: [{ field: 'password', message: 'Incorrect password' }],
+            };
+        }
+
+        req.session.userId = user.id;
 
         return { ok: true };
     }
