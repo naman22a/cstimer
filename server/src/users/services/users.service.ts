@@ -23,9 +23,16 @@ export class UsersService {
     }
 
     async confirm(id: number) {
-        return await this.prisma.user.update({
+        return await this.prisma.user.updateMany({
             where: { id },
             data: { confirmed: true },
+        });
+    }
+
+    async updatePassword(id: number, password: string) {
+        return await this.prisma.user.updateMany({
+            where: { id },
+            data: { password },
         });
     }
 }

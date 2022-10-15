@@ -10,11 +10,20 @@ import {
 } from '@nestjs/common';
 import { OkResponse } from '../../types';
 import { UsersService } from '../../users/services/users.service';
-import { LoginDto, RegisterDto } from '../types';
+import {
+    ForgotPasswordDto,
+    LoginDto,
+    RegisterDto,
+    ResetPasswordDto,
+} from '../types';
 import * as argon2 from 'argon2';
 import { AuthService } from '../services/auth.service';
 import { redis } from '../../redis';
-import { CONFIRMATION_PREFIX, COOKIE_NAME } from '../../constants';
+import {
+    CONFIRMATION_PREFIX,
+    COOKIE_NAME,
+    FORGOT_PASSWORD_PREFIX,
+} from '../../constants';
 import { Request, Response } from 'express';
 import { AuthGuard } from '../auth.guard';
 import { SessionsService } from '../../sessions/services/sessions.service';
@@ -74,7 +83,9 @@ export class AuthController {
         const user = await this.usersService.findOneById(parseInt(userId, 10));
         if (!user) return { ok: false };
 
-        await this.usersService.confirm(user.id);
+        const x = await this.usersService.confirm(user.id);
+        if (x.count === 0) return { ok: false };
+
         await redis.del(CONFIRMATION_PREFIX + token);
 
         return { ok: true };
@@ -155,5 +166,42 @@ export class AuthController {
                 resolve({ ok: true });
             }),
         );
+    }
+
+    @Post('forgot-password')
+    async forgotPassword(
+        @Body() { email }: ForgotPasswordDto,
+    ): Promise<OkResponse> {
+        const user = await this.usersService.findOneByEmail(email);
+        if (!user) return { ok: true };
+
+        const url = await this.authService.createForgotPasswordUrl(user.id);
+        await this.authService.sendEmail(email, url);
+
+        return { ok: true };
+    }
+
+    @Post('reset-password/:token')
+    async resetPassword(
+        @Body() { password }: ResetPasswordDto,
+        @Param('token', new ParseUUIDPipe({ version: '4' })) token: string,
+    ): Promise<OkResponse> {
+        const userId = await redis.get(FORGOT_PASSWORD_PREFIX + token);
+        if (!userId) return { ok: false };
+
+        const user = await this.usersService.findOneById(parseInt(userId, 10));
+        if (!user) return { ok: false };
+
+        const hashedPassword = await argon2.hash(password);
+
+        const x = await this.usersService.updatePassword(
+            user.id,
+            hashedPassword,
+        );
+        if (x.count === 0) return { ok: false };
+
+        await redis.del(FORGOT_PASSWORD_PREFIX + token);
+
+        return { ok: true };
     }
 }

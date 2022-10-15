@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { v4 } from 'uuid';
-import { CONFIRMATION_PREFIX } from '../../constants';
+import { CONFIRMATION_PREFIX, FORGOT_PASSWORD_PREFIX } from '../../constants';
 import { redis } from '../../redis';
 
 @Injectable()
@@ -38,5 +38,11 @@ export class AuthService {
             3600 * 24 * 3, // 3 days
         );
         return `http://localhost:3000/confirm/${token}`;
+    }
+
+    async createForgotPasswordUrl(userId: number) {
+        const token = v4();
+        await redis.set(FORGOT_PASSWORD_PREFIX + token, userId, 'EX', 3600 * 5); // 5 hrs
+        return `http://localhost:3000/reset-password/${token}`;
     }
 }
