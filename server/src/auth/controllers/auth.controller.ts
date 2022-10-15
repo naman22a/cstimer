@@ -87,6 +87,7 @@ export class AuthController {
     ): Promise<OkResponse> {
         const { email, password } = body;
 
+        // check if user exists in database
         const user = await this.usersService.findOneByEmail(email);
         if (!user) {
             return {
@@ -95,11 +96,22 @@ export class AuthController {
             };
         }
 
+        // check if password is correct
         const isMatch = await argon2.verify(user.password, password);
         if (!isMatch) {
             return {
                 ok: false,
                 errors: [{ field: 'password', message: 'Incorrect password' }],
+            };
+        }
+
+        // check if user has confirmed email
+        if (!user.confirmed) {
+            return {
+                ok: false,
+                errors: [
+                    { field: 'email', message: 'Please confirm your email' },
+                ],
             };
         }
 
