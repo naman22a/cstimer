@@ -5,6 +5,8 @@ import {
     ParseUUIDPipe,
     Post,
     Req,
+    Res,
+    UseGuards,
 } from '@nestjs/common';
 import { OkResponse } from '../../types';
 import { UsersService } from '../../users/services/users.service';
@@ -12,8 +14,9 @@ import { LoginDto, RegisterDto } from '../types';
 import * as argon2 from 'argon2';
 import { AuthService } from '../services/auth.service';
 import { redis } from '../../redis';
-import { CONFIRMATION_PREFIX } from '../../constants';
-import { Request } from 'express';
+import { CONFIRMATION_PREFIX, COOKIE_NAME } from '../../constants';
+import { Request, Response } from 'express';
+import { AuthGuard } from '../auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -94,5 +97,30 @@ export class AuthController {
         req.session.userId = user.id;
 
         return { ok: true };
+    }
+
+    @Post('logout')
+    @UseGuards(AuthGuard)
+    logout(
+        @Req() req: Request,
+        @Res({ passthrough: true }) res: Response,
+    ): Promise<OkResponse> {
+        return new Promise((resolve) =>
+            req.session.destroy((error) => {
+                if (error) {
+                    resolve({
+                        ok: false,
+                        errors: [
+                            {
+                                field: 'server',
+                                message: 'Something went wrong',
+                            },
+                        ],
+                    });
+                }
+                res.clearCookie(COOKIE_NAME);
+                resolve({ ok: true });
+            }),
+        );
     }
 }
