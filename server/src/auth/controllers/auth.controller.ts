@@ -17,16 +17,21 @@ import { redis } from '../../redis';
 import { CONFIRMATION_PREFIX, COOKIE_NAME } from '../../constants';
 import { Request, Response } from 'express';
 import { AuthGuard } from '../auth.guard';
+import { SessionsService } from '../../sessions/services/sessions.service';
 
 @Controller('auth')
 export class AuthController {
     constructor(
         private usersService: UsersService,
         private authService: AuthService,
+        private sessionService: SessionsService,
     ) {}
 
     @Post('register')
-    async register(@Body() body: RegisterDto): Promise<OkResponse> {
+    async register(
+        @Body() body: RegisterDto,
+        @Req() req: Request,
+    ): Promise<OkResponse> {
         const { name, email, password } = body;
 
         // check if user already exists
@@ -51,6 +56,10 @@ export class AuthController {
         // send a confirmation email to user
         const url = await this.authService.createConfirmationUrl(user.id);
         await this.authService.sendEmail(email, url);
+
+        // create default session
+        const defaultSession = await this.sessionService.create(user.id, '1');
+        req.session.sessionId = defaultSession.id;
 
         return { ok: true };
     }
@@ -92,6 +101,18 @@ export class AuthController {
                 ok: false,
                 errors: [{ field: 'password', message: 'Incorrect password' }],
             };
+        }
+
+        // set default session on login
+        const session = await this.sessionService.findAnyOne(user.id);
+        if (!session) {
+            const defaultSession = await this.sessionService.create(
+                user.id,
+                '1',
+            );
+            req.session.sessionId = defaultSession.id;
+        } else {
+            req.session.sessionId = session.id;
         }
 
         req.session.userId = user.id;
