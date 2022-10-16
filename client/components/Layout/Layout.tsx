@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { Toaster } from 'react-hot-toast';
 
 interface Props {
     children: React.ReactNode;
@@ -17,6 +18,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                 <link rel="icon" href="/logo.png" />
             </Head>
             {children}
+            <Toaster />
         </>
     );
 };

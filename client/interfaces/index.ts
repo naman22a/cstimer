@@ -7,6 +7,11 @@ export interface RegisterInfo {
     cpassword: string;
 }
 
+export interface LoginInfo {
+    email: string;
+    password: string;
+}
+
 export type HandeSubmit<T> = (
     values: T,
     formikHelpers: FormikHelpers<T>
