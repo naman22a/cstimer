@@ -1,0 +1,25 @@
+.container {
+    @apply h-screen flex justify-center items-center;
+    span {
+        @apply h-5 w-5 bg-Neon-200 mx-2 rounded-full;
+        animation: bounce 0.5s cubic-bezier(0.19, 0.57, 0.3, 0.98) infinite
+            alternate;
+
+        $elements: 4;
+        @for $i from 0 to $elements {
+            &:nth-child(#{$i + 1}) {
+                animation-delay: ($i + 1) * 0.1s;
+            }
+        }
+    }
+}
+
+@keyframes bounce {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100px);
+    }
+}

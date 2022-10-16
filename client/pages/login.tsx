@@ -4,15 +4,21 @@ import { HandeSubmit, LoginInfo } from '../interfaces';
 import { InputField, LoadingButton } from '../components';
 import styles from '../styles/auth.module.scss';
 import * as api from '../api';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { mapToErrors, notify } from '../utils';
 import { useRouter } from 'next/router';
 
 const Login: NextPage = () => {
     const router = useRouter();
+    const queryClient = useQueryClient();
     const { mutateAsync: login } = useMutation(
         ['auth', 'login'],
-        api.auth.login
+        api.auth.login,
+        {
+            onSuccess: () => {
+                queryClient.invalidateQueries(['users', 'me']);
+            }
+        }
     );
 
     const handleSubmit: HandeSubmit<LoginInfo> = async (
