@@ -38,3 +38,15 @@ export const login = async (data: LoginDto): Promise<OkResponse> => {
         return { ok: false };
     }
 };
+
+export const forgotPassword = async (email: string): Promise<OkResponse> => {
+    try {
+        const res = await API.post('/auth/forgot-password', { email });
+        return res.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return error.response?.data;
+        }
+        return { ok: false };
+    }
+};

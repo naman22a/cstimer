@@ -1,12 +1,13 @@
 import { NextPage } from 'next';
-import { Formik, Form } from 'formik';
+import { Formik, Form, FormikErrors } from 'formik';
 import { HandeSubmit, LoginInfo } from '../interfaces';
 import { InputField, LoadingButton } from '../components';
 import styles from '../styles/auth.module.scss';
 import * as api from '../api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { mapToErrors, notify } from '../utils';
+import { isEmail, mapToErrors, notify, showError } from '../utils';
 import { useRouter } from 'next/router';
+import toast from 'react-hot-toast';
 
 const Login: NextPage = () => {
     const router = useRouter();
@@ -19,6 +20,10 @@ const Login: NextPage = () => {
                 queryClient.invalidateQueries(['users', 'me']);
             }
         }
+    );
+    const { mutateAsync: forgotPassword } = useMutation(
+        ['auth', 'forgot-password'],
+        api.auth.forgotPassword
     );
 
     const handleSubmit: HandeSubmit<LoginInfo> = async (
@@ -36,6 +41,34 @@ const Login: NextPage = () => {
         }
     };
 
+    const handleForgotPassword = async (
+        email: string,
+        setErrors: (
+            errors: FormikErrors<{
+                email: string;
+                password: string;
+            }>
+        ) => void
+    ) => {
+        const toastId = toast.loading('Loading...');
+
+        if (!isEmail(email)) {
+            setErrors({
+                email: 'Invalid email'
+            });
+        }
+
+        const res = await forgotPassword(email);
+
+        if (res.ok && !res.errors) {
+            notify('Reset password email sent');
+        } else {
+            showError();
+        }
+
+        toast.dismiss(toastId);
+    };
+
     return (
         <div className={styles.container}>
             <h1>Login</h1>
@@ -46,7 +79,7 @@ const Login: NextPage = () => {
                 }}
                 onSubmit={handleSubmit}
             >
-                {({ isSubmitting }) => (
+                {({ isSubmitting, values: { email }, setErrors }) => (
                     <Form>
                         <InputField name="email" label="Email" type="email" />
                         <InputField
@@ -54,6 +87,14 @@ const Login: NextPage = () => {
                             label="Password"
                             type="password"
                         />
+                        <p
+                            className="font-semibold mb-3 border-b-2 border-b-Neon-200 inline-block pb-2 cursor-pointer"
+                            onClick={() =>
+                                handleForgotPassword(email, setErrors)
+                            }
+                        >
+                            Forgot password ?
+                        </p>
                         <LoadingButton
                             isLoading={isSubmitting}
                             type="submit"
