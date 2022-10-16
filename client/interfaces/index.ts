@@ -12,7 +12,12 @@ export interface LoginInfo {
     password: string;
 }
 
-export type HandeSubmit<T> = (
+export interface ResetPasswordInfo {
+    password: string;
+    cpassword: string;
+}
+
+export type HandleSubmit<T> = (
     values: T,
     formikHelpers: FormikHelpers<T>
 ) => void | Promise<any>;

@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { Formik, Form, FormikErrors } from 'formik';
-import { HandeSubmit, LoginInfo } from '../interfaces';
+import { HandleSubmit, LoginInfo } from '../interfaces';
 import { InputField, LoadingButton } from '../components';
 import styles from '../styles/auth.module.scss';
 import * as api from '../api';
@@ -26,7 +26,7 @@ const Login: NextPage = () => {
         api.auth.forgotPassword
     );
 
-    const handleSubmit: HandeSubmit<LoginInfo> = async (
+    const handleSubmit: HandleSubmit<LoginInfo> = async (
         values,
         { setErrors }
     ) => {

@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import { Formik, Form } from 'formik';
-import { HandeSubmit, RegisterInfo } from '../interfaces';
+import { HandleSubmit, RegisterInfo } from '../interfaces';
 import { InputField, LoadingButton } from '../components';
 import styles from '../styles/auth.module.scss';
 import * as api from '../api';
@@ -13,7 +13,7 @@ const Register: NextPage = () => {
         api.auth.register
     );
 
-    const handleSubmit: HandeSubmit<RegisterInfo> = async (
+    const handleSubmit: HandleSubmit<RegisterInfo> = async (
         values,
         { setErrors }
     ) => {
