@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    body {
+        @apply dark:bg-Black dark:text-white text-black bg-white;
+    }
+}
+
+@layer components {
+    .toast {
+        @apply dark:bg-Grey dark:text-white text-black bg-gray-100;
+    }
+}
