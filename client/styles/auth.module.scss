@@ -7,17 +7,5 @@
 
     form {
         @apply px-4;
-
-        button[type='submit'] {
-            @apply px-4 py-2 bg-Neon-200 text-white rounded mt-3 flex items-center justify-between;
-
-            svg {
-                @apply h-5 w-5 animate-spin;
-            }
-
-            span {
-                @apply ml-2;
-            }
-        }
     }
 }

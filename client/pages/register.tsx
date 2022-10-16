@@ -1,17 +1,14 @@
 import { NextPage } from 'next';
 import { Formik, Form } from 'formik';
 import { HandeSubmit, RegisterInfo } from '../interfaces';
-import { InputField } from '../components';
+import { InputField, LoadingButton } from '../components';
 import styles from '../styles/auth.module.scss';
 import * as api from '../api';
-import { useRouter } from 'next/router';
 import { useMutation } from '@tanstack/react-query';
 import { mapToErrors, notify } from '../utils';
 import { Toaster } from 'react-hot-toast';
-import { CgSpinner } from 'react-icons/cg';
 
 const Register: NextPage = () => {
-    const router = useRouter();
     const { mutateAsync: register } = useMutation(
         ['auth', 'register'],
         api.auth.register
@@ -62,10 +59,13 @@ const Register: NextPage = () => {
                             label="Confirm Password"
                             type="password"
                         />
-                        <button type="submit">
-                            {isSubmitting && <CgSpinner />}
-                            <span>Register</span>
-                        </button>
+                        <LoadingButton
+                            isLoading={isSubmitting}
+                            type="submit"
+                            className="mt-3"
+                        >
+                            Register
+                        </LoadingButton>
                     </Form>
                 )}
             </Formik>

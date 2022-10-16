@@ -14,3 +14,15 @@ export const register = async (data: RegisterDto): Promise<OkResponse> => {
         return { ok: false };
     }
 };
+
+export const confirmEmail = async (token: string): Promise<OkResponse> => {
+    try {
+        const res = await API.post(`/auth/confirm/${token}`);
+        return res.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return error.response?.data;
+        }
+        return { ok: false };
+    }
+};

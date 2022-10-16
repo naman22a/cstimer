@@ -1,0 +1,11 @@
+.btn {
+    @apply px-4 py-2 bg-Neon-200 text-white rounded flex items-center justify-between;
+
+    svg {
+        @apply h-5 w-5 animate-spin;
+    }
+
+    span {
+        @apply ml-2;
+    }
+}

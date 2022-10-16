@@ -15,3 +15,10 @@ export const notify = (text: string) =>
         position: 'top-center',
         className: 'toast'
     });
+
+export const showError = (text: string = 'Something went wrong') =>
+    toast.error(text, {
+        duration: 2000,
+        position: 'top-center',
+        className: 'toast'
+    });
