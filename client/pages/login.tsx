@@ -18,6 +18,7 @@ const Login: NextPage = () => {
         {
             onSuccess: () => {
                 queryClient.invalidateQueries(['users', 'me']);
+                router.push('/');
             }
         }
     );
@@ -35,7 +36,6 @@ const Login: NextPage = () => {
         const res = await login({ email, password });
         if (res.ok && !res.errors) {
             notify('Logged in');
-            router.push('/');
         } else {
             setErrors(mapToErrors(res.errors!));
         }
