@@ -1,9 +1,38 @@
 .container {
-    @apply absolute md:relative bottom-0 w-full p-2 h-10 md:h-auto;
+    @apply absolute md:relative bottom-0 w-full h-10 md:h-auto shadow-xl;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr 1fr 1fr 1fr;
 
     // md
     @media (min-width: 768px) {
         grid-row-start: 1;
         grid-row-end: 3;
+
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+    }
+
+    button {
+        @apply bg-Grey flex items-center justify-center rounded-lg cursor-pointer hover:bg-Neon-200 transition-all duration-300 shadow;
+
+        svg {
+            @apply h-7 w-7;
+        }
+
+        &:nth-child(4) {
+            font-family: fantasy;
+            @apply text-xl sm:text-2xl md:text-5xl;
+        }
+
+        // md
+        @media (min-width: 768px) {
+            svg {
+                @apply h-12 w-12;
+            }
+            &:nth-child(4) {
+                grid-column-start: 1;
+                grid-column-end: 4;
+            }
+        }
     }
 }
