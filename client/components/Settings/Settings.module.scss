@@ -1,0 +1,9 @@
+.container {
+    @apply absolute md:relative bottom-0 w-full p-2 h-10 md:h-auto;
+
+    // md
+    @media (min-width: 768px) {
+        grid-row-start: 1;
+        grid-row-end: 3;
+    }
+}

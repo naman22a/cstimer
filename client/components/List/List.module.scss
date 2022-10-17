@@ -1,0 +1,14 @@
+.container {
+    @apply absolute md:relative bottom-10 md:top-0 bg-Grey w-2/5 md:w-full h-1/4;
+    overflow-x: hidden;
+    overflow-y: scroll;
+
+    // md
+    @media (min-width: 768px) {
+        grid-row-start: 3;
+        grid-row-end: 4;
+
+        height: calc(100vh - 270px);
+        overflow-y: hidden;
+    }
+}

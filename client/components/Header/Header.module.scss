@@ -1,0 +1,9 @@
+.container {
+    @apply bg-Grey p-3;
+
+    // md
+    @media (min-width: 768px) {
+        grid-row-start: 1;
+        grid-row-end: 2;
+    }
+}

@@ -1,0 +1,12 @@
+$side: 270px;
+
+.container {
+    @apply flex flex-col min-h-screen relative w-full;
+
+    // md
+    @media (min-width: 768px) {
+        display: grid;
+        grid-template-columns: $side auto;
+        grid-template-rows: calc($side/2) calc($side/2) auto;
+    }
+}
