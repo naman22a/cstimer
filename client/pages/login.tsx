@@ -14,13 +14,7 @@ const Login: NextPage = () => {
     const queryClient = useQueryClient();
     const { mutateAsync: login } = useMutation(
         ['auth', 'login'],
-        api.auth.login,
-        {
-            onSuccess: () => {
-                queryClient.invalidateQueries(['users', 'me']);
-                router.push('/');
-            }
-        }
+        api.auth.login
     );
     const { mutateAsync: forgotPassword } = useMutation(
         ['auth', 'forgot-password'],
@@ -35,6 +29,8 @@ const Login: NextPage = () => {
 
         const res = await login({ email, password });
         if (res.ok && !res.errors) {
+            await queryClient.invalidateQueries(['users', 'me']);
+            await router.push('/');
             notify('Logged in');
         } else {
             setErrors(mapToErrors(res.errors!));
