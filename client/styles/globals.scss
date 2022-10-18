@@ -6,6 +6,23 @@
     body {
         @apply dark:bg-Black dark:text-white text-black bg-white overflow-hidden;
     }
+
+    table tr td,
+    table tr th {
+        @apply border border-black dark:border-white text-center p-1 text-sm md:text-base;
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+        @apply bg-gray-300 dark:bg-gray-800;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        @apply bg-Neon-100 hover:bg-Neon-200 dark:bg-Neon-200 dark:hover:bg-Neon-100 rounded;
+    }
 }
 
 @layer components {

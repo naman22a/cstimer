@@ -1,5 +1,5 @@
 .container {
-    @apply absolute md:relative bottom-10 md:top-0 w-2/5 md:w-full h-1/4;
+    @apply absolute md:relative bottom-10 md:top-0 w-2/5 md:w-full h-1/4 flex flex-col px-2 pt-5 rounded-lg shadow-lg;
     overflow-x: hidden;
     overflow-y: scroll;
 
@@ -9,6 +9,5 @@
         grid-row-end: 4;
 
         height: calc(100vh - 270px);
-        overflow-y: hidden;
     }
 }
