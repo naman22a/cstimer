@@ -2,7 +2,7 @@ import React from 'react';
 import styles from './Header.module.scss';
 import { useTheme } from 'next-themes';
 import { useLoaded } from '../../hooks';
-import { BsMoon, BsSunFill } from 'react-icons/bs';
+import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 
 const Header: React.FC = () => {
     const { theme, setTheme } = useTheme();
@@ -29,7 +29,11 @@ const Header: React.FC = () => {
                         setTheme(theme === 'light' ? 'dark' : 'light')
                     }
                 >
-                    {loaded && theme === 'light' ? <BsMoon /> : <BsSunFill />}
+                    {loaded && theme === 'light' ? (
+                        <BsFillMoonFill />
+                    ) : (
+                        <BsSunFill />
+                    )}
                 </button>
                 <span>last</span>
                 <span className="mx-1">/</span>
