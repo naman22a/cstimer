@@ -1,9 +1,20 @@
 .container {
-    @apply bg-Grey p-3;
+    @apply bg-Grey p-3 flex flex-col items-center pt-6 shadow-lg;
 
     // md
     @media (min-width: 768px) {
         grid-row-start: 1;
         grid-row-end: 2;
+    }
+
+    > div {
+        @apply mb-5;
+        select {
+            @apply bg-Black mx-2;
+        }
+    }
+
+    h2 {
+        @apply text-lg sm:text-xl md:text-2xl text-center;
     }
 }
