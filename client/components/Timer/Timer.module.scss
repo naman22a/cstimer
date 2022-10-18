@@ -1,5 +1,10 @@
 .container {
-    @apply h-full;
+    @apply flex flex-col justify-center items-center -mt-6;
+    height: calc(100vh - 112px); // h-screen - h-28
+
+    h1 {
+        @apply text-8xl md:text-9xl;
+    }
 
     // md
     @media (min-width: 768px) {
