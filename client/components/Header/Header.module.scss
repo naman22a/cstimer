@@ -1,5 +1,5 @@
 .container {
-    @apply bg-Grey p-3 flex flex-col items-center pt-6 shadow-lg;
+    @apply p-3 flex flex-col items-center pt-6 shadow-lg;
 
     // md
     @media (min-width: 768px) {
@@ -8,9 +8,9 @@
     }
 
     > div {
-        @apply mb-5;
+        @apply mb-5 flex items-center;
         select {
-            @apply bg-Black mx-2;
+            @apply dark:bg-Black mx-2;
         }
     }
 

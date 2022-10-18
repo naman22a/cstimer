@@ -34,25 +34,30 @@ const Settings: React.FC = () => {
 
     return (
         <div className={styles.container}>
-            <button>
+            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
                 <IoIosSettings />
             </button>
-            <button onClick={() => handleLogout()}>
+            <button
+                className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200"
+                onClick={() => handleLogout()}
+            >
                 <FiLogOut />
             </button>
-            <button>
+            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
                 <BsFillGrid3X3GapFill />
             </button>
 
-            <button>CsTimer</button>
+            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
+                CsTimer
+            </button>
 
-            <button>
+            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
                 <AiOutlineUnorderedList />
             </button>
-            <button>
+            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
                 <HiOutlineCurrencyRupee />
             </button>
-            <button>
+            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
                 <HiOutlineAdjustments />
             </button>
         </div>
