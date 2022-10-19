@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './Header.module.scss';
 import { useTheme } from 'next-themes';
-import { useLoaded } from '../../hooks';
+import { useLoaded } from '@hooks';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 
 const Header: React.FC = () => {

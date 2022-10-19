@@ -1,11 +1,11 @@
 import { NextPage } from 'next';
 import { Formik, Form } from 'formik';
-import { HandleSubmit, RegisterInfo } from '../interfaces';
-import { InputField, LoadingButton } from '../components';
+import { HandleSubmit, RegisterInfo } from '@interfaces';
+import { InputField, LoadingButton } from '@components';
 import styles from '../styles/auth.module.scss';
-import * as api from '../api';
+import * as api from '@api';
 import { useMutation } from '@tanstack/react-query';
-import { mapToErrors, notify } from '../utils';
+import { mapToErrors, notify } from '@utils';
 
 const Register: NextPage = () => {
     const { mutateAsync: register } = useMutation(

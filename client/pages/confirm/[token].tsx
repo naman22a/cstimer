@@ -1,9 +1,9 @@
 import { useMutation } from '@tanstack/react-query';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import * as api from '../../api';
-import { LoadingButton } from '../../components';
-import { notify, showError } from '../../utils';
+import * as api from '@api';
+import { LoadingButton } from '@components';
+import { notify, showError } from '@utils';
 
 const ConfirmEmail: NextPage = () => {
     const router = useRouter();

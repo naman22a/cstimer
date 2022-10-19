@@ -6,10 +6,10 @@ import { BsFillGrid3X3GapFill } from 'react-icons/bs';
 import { AiOutlineUnorderedList } from 'react-icons/ai';
 import { HiOutlineCurrencyRupee, HiOutlineAdjustments } from 'react-icons/hi';
 import { useRouter } from 'next/router';
-import * as api from '../../api';
+import * as api from '@api';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
-import { notify, showError } from '../../utils';
+import { notify, showError } from '@utils';
 
 const Settings: React.FC = () => {
     const router = useRouter();

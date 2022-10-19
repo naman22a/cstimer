@@ -1,6 +1,6 @@
+import React from 'react';
 import { useQuery } from '@tanstack/react-query';
-import React, { SelectHTMLAttributes } from 'react';
-import * as api from '../../../../api';
+import * as api from '@api';
 
 const SelectMenu: React.FC = () => {
     const {

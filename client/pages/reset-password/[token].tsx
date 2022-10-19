@@ -1,11 +1,11 @@
+import React from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { InputField, LoadingButton } from '../../components';
-import { HandleSubmit, ResetPasswordInfo } from '../../interfaces';
-import * as api from '../../api';
-import { mapToErrors, notify, showError } from '../../utils';
+import { InputField, LoadingButton } from '@components';
+import { HandleSubmit, ResetPasswordInfo } from '@interfaces';
+import * as api from '@api';
+import { mapToErrors, notify, showError } from '@utils';
 
 const ResetPassword: React.FC = () => {
     const router = useRouter();
