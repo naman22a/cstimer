@@ -1,8 +1,10 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as api from '@api';
+import { showError } from '../../../../utils';
 
 const SelectMenu: React.FC = () => {
+    const queryClient = useQueryClient();
     const {
         data: sessions,
         isLoading: sIsLoading,
@@ -14,6 +16,73 @@ const SelectMenu: React.FC = () => {
         isError: cError
     } = useQuery(['sessions', 'current'], api.sessions.currentSession);
 
+    // adding a new session
+    const { mutateAsync: createSession } = useMutation(
+        ['sessions', 'create'],
+        api.sessions.createSession,
+        {
+            onSuccess: async data => {
+                if (data) {
+                    await queryClient.invalidateQueries(['sessions']);
+                    await queryClient.invalidateQueries([
+                        'sessions',
+                        'current'
+                    ]);
+                }
+            }
+        }
+    );
+
+    // delete session
+    const { mutateAsync: deleteSession } = useMutation(
+        ['sessions', 'delete'],
+        api.sessions.deleteSession,
+        {
+            onSuccess: async data => {
+                if (data.ok) {
+                    await queryClient.invalidateQueries(['sessions']);
+                    await queryClient.invalidateQueries([
+                        'sessions',
+                        'current'
+                    ]);
+                }
+            }
+        }
+    );
+
+    // change session
+    const { mutateAsync: changeSession } = useMutation(
+        ['sessions', 'change'],
+        api.sessions.changeSession,
+        {
+            onSuccess: async data => {
+                if (data.ok) {
+                    await queryClient.invalidateQueries([
+                        'sessions',
+                        'current'
+                    ]);
+                }
+            }
+        }
+    );
+
+    // rename a session
+    const { mutateAsync: renameSession } = useMutation(
+        ['sessions', 'rename'],
+        api.sessions.renameSession,
+        {
+            onSuccess: async data => {
+                if (data.ok) {
+                    await queryClient.invalidateQueries(['sessions']);
+                    await queryClient.invalidateQueries([
+                        'sessions',
+                        'current'
+                    ]);
+                }
+            }
+        }
+    );
+
     // loading state
     if (sIsLoading || cIsLoading) {
         return <p>Loading...</p>;
@@ -24,19 +93,30 @@ const SelectMenu: React.FC = () => {
         return <p>Something went wrong</p>;
     }
 
-    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const handleChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
         const value = e.target.value;
         const id = parseInt(e.target.value, 10);
 
         if (value === 'new') {
-            console.log('new clicked');
+            const name = prompt('Enter session name');
+            await createSession(name!);
         } else if (value === 'delete') {
-            console.log('delete clicked');
+            if (sessions.length <= 1) {
+                showError("Can't delete session");
+            } else {
+                const yes = confirm('Do you want to delete this session ?');
+                if (yes) {
+                    await deleteSession(session?.id);
+                }
+            }
         } else if (value === 'rename') {
-            console.log('rename clicked');
+            const name = prompt('Enter the new name');
+            await renameSession(name!);
         } else {
-            console.log('something else clicked');
+            await changeSession(id);
         }
+
+        await queryClient.invalidateQueries(['solves']);
     };
 
     return (
