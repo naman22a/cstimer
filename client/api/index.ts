@@ -8,3 +8,4 @@ const API = axios.create({
 export default API;
 export * as auth from './auth';
 export * as user from './users';
+export * as sessions from './sessions';
