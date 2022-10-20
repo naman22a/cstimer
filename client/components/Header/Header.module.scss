@@ -1,5 +1,5 @@
 .container {
-    @apply p-3 flex flex-col items-center pt-6 shadow-lg h-28;
+    @apply p-3 flex flex-col items-center pt-6 shadow-lg;
 
     // md
     @media (min-width: 768px) {

@@ -36,6 +36,19 @@ export const convertPuzzleType = (puzzleType: PuzzleType) => {
     return puzzleTypeArray[puzzleType];
 };
 
+export const convertNumberType = (type: string) => {
+    const map: Record<string, PuzzleType> = {
+        '3x3': PuzzleType.THREE,
+        '2x2': PuzzleType.TWO,
+        '4x4': PuzzleType.FOUR,
+        '5x5': PuzzleType.FIVE,
+        '6x6': PuzzleType.SIX,
+        '7x7': PuzzleType.SEVEN
+    };
+
+    return map[type];
+};
+
 export function scrambleGenrator(type: PuzzleType): string {
     const { length, range } = puzzleTypeMap.get(convertPuzzleType(type));
 
