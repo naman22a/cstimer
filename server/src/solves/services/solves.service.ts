@@ -12,7 +12,10 @@ export class SolvesService {
     constructor(private prisma: PrismaService) {}
 
     async findAll(where: FindSolveOptions) {
-        return await this.prisma.solve.findMany({ where });
+        return await this.prisma.solve.findMany({
+            where,
+            orderBy: [{ createdAt: 'desc' }],
+        });
     }
 
     async create(data: CreateSolveOptions) {
