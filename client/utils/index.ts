@@ -1,5 +1,7 @@
 import { FieldError } from '../api/types';
 import toast from 'react-hot-toast';
+import { PuzzleType } from '../api/solves/types';
+import { notationMatrix, puzzleTypeMap } from '@global';
 
 export const mapToErrors = (errors: FieldError[]) => {
     const errorMap: Record<string, string> = {};
@@ -28,3 +30,58 @@ export const isEmail = (email: string) => {
         /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
+
+export const convertPuzzleType = (puzzleType: PuzzleType) => {
+    const puzzleTypeArray = ['3x3', '2x2', '4x4', '5x5', '6x6', '7x7'];
+    return puzzleTypeArray[puzzleType];
+};
+
+export function scrambleGenrator(type: PuzzleType): string {
+    const { length, range } = puzzleTypeMap.get(convertPuzzleType(type));
+
+    const notations: string[] = [];
+
+    // returns a random integer from interval [a,b]
+    function randint(a: number, b: number): number {
+        return Math.round(a + (b - a) * Math.random());
+    }
+
+    let i = 1;
+
+    let lastIndex: number | null = null; // null is to avoid the typescript compliation error null will be never used 😅
+
+    while (length >= i) {
+        if (i === 1) {
+            // making to 2 random integers for 2 indices of notationMatrix
+            const ran1 = randint(range[0] - 1, range[1] - 1);
+            const ran2 = randint(0, 2);
+
+            let notation = notationMatrix[ran1][ran2];
+            notations.push(notation);
+
+            lastIndex = ran1; // to not repeat the same notation type like R R2 , should not come together
+
+            i++;
+            continue;
+        }
+
+        // making to 2 random integers for 2 indices of notationMatrix
+        const ran1 = randint(range[0] - 1, range[1] - 1);
+        const ran2 = randint(0, 2);
+
+        // to not repeat the same notation type like R R2 , should not come together
+        if (lastIndex !== ran1) {
+            let notation = notationMatrix[ran1][ran2];
+            notations.push(notation);
+
+            lastIndex = ran1;
+        } else {
+            continue;
+        }
+
+        i++;
+    }
+
+    // to convert array to notations to a single string
+    return notations.join(' ');
+}

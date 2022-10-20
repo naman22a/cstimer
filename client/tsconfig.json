@@ -18,7 +18,7 @@
         "paths": {
             "@api": ["api/index"],
             "@components": ["components/index"],
-            "@globals": ["globals/index"],
+            "@global": ["global/index"],
             "@utils": ["utils/index"],
             "@hooks": ["hooks/index"],
             "@interfaces": ["interfaces/index"],

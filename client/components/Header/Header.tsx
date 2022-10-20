@@ -1,12 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './Header.module.scss';
 import { useTheme } from 'next-themes';
 import { useLoaded } from '@hooks';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
+import { useStore } from '@store';
+import { scrambleGenrator } from '@utils';
 
 const Header: React.FC = () => {
+    // dark / light theme toggle
     const { theme, setTheme } = useTheme();
     const loaded = useLoaded();
+
+    // state
+    const scramble = useStore(state => state.scramble);
+    const setScramble = useStore(state => state.setScramble);
+    const puzzleType = useStore(state => state.puzzleType);
+    const scrambleList = useStore(state => state.scrambleList);
+    const addScrambleList = useStore(state => state.addScrambleList);
+
+    useEffect(() => {
+        // default scramble on load
+        const newScramble = scrambleGenrator(puzzleType);
+        addScrambleList(newScramble);
+        setScramble(newScramble);
+    }, []);
+
+    // function for last scramble
+    const handleLastClick = () => {
+        if (scrambleList.length >= 2) {
+            setScramble(scrambleList[scrambleList.length - 2]);
+        } else {
+            setScramble(scrambleList[0]);
+        }
+    };
+
+    // function for next scramble
+    const handleNextClick = () => {
+        const newScramble = scrambleGenrator(puzzleType);
+        addScrambleList(newScramble);
+        setScramble(newScramble);
+    };
 
     return (
         <header className={`${styles.container} dark:bg-Grey bg-gray-200`}>
@@ -35,12 +68,19 @@ const Header: React.FC = () => {
                         <BsSunFill />
                     )}
                 </button>
-                <span>last</span>
+                <span className="cursor-pointer" onClick={handleLastClick}>
+                    last
+                </span>
                 <span className="mx-1">/</span>
-                <span className="text-Neon-200 dark:text-Neon-100">next</span>
+                <span
+                    className="text-Neon-200 dark:text-Neon-100 cursor-pointer"
+                    onClick={handleNextClick}
+                >
+                    next
+                </span>
                 <span className="ml-3">scramble</span>
             </div>
-            <h2>L2 B2 R2 B2 R2 U' L2 B2 U2 F2 D U' F' R' F2 D2 L F D' L F'</h2>
+            <h2>{scramble}</h2>
         </header>
     );
 };
