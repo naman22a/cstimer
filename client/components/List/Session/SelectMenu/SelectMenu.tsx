@@ -89,7 +89,7 @@ const SelectMenu: React.FC = () => {
     }
 
     // error state
-    if (sError || cError || !sessions || !session) {
+    if (sError || cError) {
         return <p>Something went wrong</p>;
     }
 
@@ -101,12 +101,12 @@ const SelectMenu: React.FC = () => {
             const name = prompt('Enter session name');
             await createSession(name!);
         } else if (value === 'delete') {
-            if (sessions.length <= 1) {
+            if (sessions?.length! <= 1) {
                 showError("Can't delete session");
             } else {
                 const yes = confirm('Do you want to delete this session ?');
                 if (yes) {
-                    await deleteSession(session?.id);
+                    await deleteSession(session?.id!);
                 }
             }
         } else if (value === 'rename') {
@@ -129,7 +129,7 @@ const SelectMenu: React.FC = () => {
                 value={session?.id}
                 onChange={handleChange}
             >
-                {sessions.map(session => (
+                {sessions?.map(session => (
                     <option key={session.id} value={session.id}>
                         {session.name}
                     </option>
