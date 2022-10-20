@@ -11,6 +11,12 @@ interface State {
     scrambleList: string[];
     addScrambleList: (scramble: string) => void;
     resetScrambleList: () => void;
+
+    headerVisible: boolean;
+    toggleHeader: () => void;
+
+    listVisible: boolean;
+    toggleList: () => void;
 }
 
 export const useStore = createStore<State>(set => ({
@@ -23,5 +29,11 @@ export const useStore = createStore<State>(set => ({
     scrambleList: [],
     addScrambleList: scramble =>
         set(state => ({ scrambleList: [...state.scrambleList, scramble] })),
-    resetScrambleList: () => set(() => ({ scrambleList: [] }))
+    resetScrambleList: () => set(() => ({ scrambleList: [] })),
+
+    headerVisible: true,
+    toggleHeader: () => set(state => ({ headerVisible: !state.headerVisible })),
+
+    listVisible: true,
+    toggleList: () => set(state => ({ listVisible: !state.listVisible }))
 }));

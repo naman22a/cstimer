@@ -10,14 +10,19 @@ import * as api from '@api';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { notify, showError } from '@utils';
+import { useStore } from '@store';
 
 const Settings: React.FC = () => {
+    // Toggle btns
+    const toggleHeader = useStore(state => state.toggleHeader);
+    const toggleList = useStore(state => state.toggleList);
+
+    // logout
     const router = useRouter();
     const { mutateAsync: logout } = useMutation(
         ['auth', 'logout'],
         api.auth.logout
     );
-
     const handleLogout = async () => {
         const toastId = toast.loading('Loading...');
 
@@ -43,7 +48,10 @@ const Settings: React.FC = () => {
             >
                 <FiLogOut />
             </button>
-            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
+            <button
+                className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200"
+                onClick={toggleHeader}
+            >
                 <BsFillGrid3X3GapFill />
             </button>
 
@@ -51,7 +59,10 @@ const Settings: React.FC = () => {
                 CsTimer
             </button>
 
-            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
+            <button
+                className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200"
+                onClick={toggleList}
+            >
                 <AiOutlineUnorderedList />
             </button>
             <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">

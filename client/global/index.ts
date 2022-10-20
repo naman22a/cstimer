@@ -1,3 +1,5 @@
+import { Variants } from 'framer-motion';
+
 export const notationMatrix = [
     ['U', "U'", 'U2'],
     ['D', "D'", 'D2'],
@@ -57,3 +59,19 @@ export let puzzleTypeMap = new Map();
 for (const puzzleObj of puzzleTypeObject) {
     puzzleTypeMap.set(puzzleObj.type, puzzleObj);
 }
+
+// animations
+export const fade: Variants = {
+    hidden: {
+        opacity: 0
+    },
+    visible: {
+        opacity: 1,
+        transition: {
+            duration: 0.1
+        }
+    },
+    exit: {
+        opacity: 0
+    }
+};

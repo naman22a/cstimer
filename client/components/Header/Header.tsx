@@ -5,6 +5,8 @@ import { useLoaded } from '@hooks';
 import { BsFillMoonFill, BsSunFill } from 'react-icons/bs';
 import { useStore } from '@store';
 import { convertNumberType, scrambleGenrator } from '@utils';
+import { AnimatePresence, motion } from 'framer-motion';
+import { fade } from '@global';
 
 const Header: React.FC = () => {
     // dark / light theme toggle
@@ -19,6 +21,7 @@ const Header: React.FC = () => {
     const scrambleList = useStore(state => state.scrambleList);
     const addScrambleList = useStore(state => state.addScrambleList);
     const resetScrambleList = useStore(state => state.resetScrambleList);
+    const headerVisible = useStore(state => state.headerVisible);
 
     useEffect(() => {
         // default scramble on load
@@ -63,75 +66,91 @@ const Header: React.FC = () => {
     };
 
     return (
-        <header className={`${styles.container} dark:bg-Grey bg-gray-200`}>
-            <div>
-                <select
-                    name="wca"
-                    defaultValue="wca"
-                    onChange={e => setF1(e.target.value)}
+        <AnimatePresence initial={false} exitBeforeEnter={true}>
+            {headerVisible && (
+                <motion.header
+                    className={`${styles.container} dark:bg-Grey bg-gray-200`}
+                    variants={fade}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
                 >
-                    <option value="wca">WCA</option>
-                    <option value="input">Input</option>
-                </select>
-                <select
-                    name="puzzleType"
-                    defaultValue="3x3"
-                    onChange={e => handlePuzzleTypeChange(e.target.value)}
-                >
-                    <option value="2x2">2x2</option>
-                    <option value="3x3">3x3</option>
-                    <option value="4x4">4x4</option>
-                    <option value="5x5">5x5</option>
-                    <option value="6x6">6x6</option>
-                    <option value="7x7">7x7</option>
-                </select>
-                <button
-                    className="mr-2"
-                    onClick={() =>
-                        setTheme(theme === 'light' ? 'dark' : 'light')
-                    }
-                >
-                    {loaded && theme === 'light' ? (
-                        <BsFillMoonFill />
-                    ) : (
-                        <BsSunFill />
-                    )}
-                </button>
-                <span className="cursor-pointer" onClick={handleLastClick}>
-                    last
-                </span>
-                <span className="mx-1">/</span>
-                <span
-                    className="text-Neon-200 dark:text-Neon-100 cursor-pointer"
-                    onClick={handleNextClick}
-                >
-                    next
-                </span>
-                <span className="ml-3">scramble</span>
-            </div>
-            {f1 === 'input' && (
-                <div className="flex justify-center items-center flex-col">
-                    <div className="flex justify-center items-center">
-                        <input
-                            type="text"
-                            value={inputText}
-                            onChange={e => setInputText(e.target.value)}
-                            className="px-3 py-1 bg-gray-300 dark:bg-Black dark:text-white rounded outline-none mr-4"
-                        />
-                        <button
-                            onClick={handleInputButtonClick}
-                            className="bg-gray-300 dark:bg-Neon-200 text-sm py-1 px-3 rounded-lg"
+                    <div>
+                        <select
+                            name="wca"
+                            defaultValue="wca"
+                            onChange={e => setF1(e.target.value)}
                         >
-                            Done
+                            <option value="wca">WCA</option>
+                            <option value="input">Input</option>
+                        </select>
+                        <select
+                            name="puzzleType"
+                            defaultValue="3x3"
+                            onChange={e =>
+                                handlePuzzleTypeChange(e.target.value)
+                            }
+                        >
+                            <option value="2x2">2x2</option>
+                            <option value="3x3">3x3</option>
+                            <option value="4x4">4x4</option>
+                            <option value="5x5">5x5</option>
+                            <option value="6x6">6x6</option>
+                            <option value="7x7">7x7</option>
+                        </select>
+                        <button
+                            className="mr-2"
+                            onClick={() =>
+                                setTheme(theme === 'light' ? 'dark' : 'light')
+                            }
+                        >
+                            {loaded && theme === 'light' ? (
+                                <BsFillMoonFill />
+                            ) : (
+                                <BsSunFill />
+                            )}
                         </button>
+                        <span
+                            className="cursor-pointer"
+                            onClick={handleLastClick}
+                        >
+                            last
+                        </span>
+                        <span className="mx-1">/</span>
+                        <span
+                            className="text-Neon-200 dark:text-Neon-100 cursor-pointer"
+                            onClick={handleNextClick}
+                        >
+                            next
+                        </span>
+                        <span className="ml-3">scramble</span>
                     </div>
-                    <p className="text-sm">
-                        do not press spacebar while typing the input scramble
-                    </p>
-                </div>
+                    {f1 === 'input' && (
+                        <div className="flex justify-center items-center flex-col">
+                            <div className="flex justify-center items-center">
+                                <input
+                                    type="text"
+                                    value={inputText}
+                                    onChange={e => setInputText(e.target.value)}
+                                    className="px-3 py-1 bg-gray-300 dark:bg-Black dark:text-white rounded outline-none mr-4"
+                                />
+                                <button
+                                    onClick={handleInputButtonClick}
+                                    className="bg-gray-300 dark:bg-Neon-200 text-sm py-1 px-3 rounded-lg"
+                                >
+                                    Done
+                                </button>
+                            </div>
+                            <p className="text-sm">
+                                do not press spacebar while typing the input
+                                scramble
+                            </p>
+                        </div>
+                    )}
+                    {f1 === 'wca' && <h2>{scramble}</h2>}
+                </motion.header>
             )}
-            {f1 === 'wca' && <h2>{scramble}</h2>}
-        </header>
+        </AnimatePresence>
     );
 };
 

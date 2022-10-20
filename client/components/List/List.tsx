@@ -3,14 +3,29 @@ import styles from './List.module.scss';
 import Session from './Session/Session';
 import Solves from './Solves/Solves';
 import Stats from './Stats/Stats';
+import { useStore } from '@store';
+import { AnimatePresence, motion } from 'framer-motion';
+import { fade } from '@global';
 
 const List: React.FC = () => {
+    const listVisible = useStore(state => state.listVisible);
+
     return (
-        <div className={`${styles.container} dark:bg-Grey bg-gray-200`}>
-            <Session />
-            <Stats />
-            <Solves />
-        </div>
+        <AnimatePresence initial={false} exitBeforeEnter={true}>
+            {listVisible && (
+                <motion.div
+                    className={`${styles.container} dark:bg-Grey bg-gray-200`}
+                    variants={fade}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                >
+                    <Session />
+                    <Stats />
+                    <Solves />
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 };
 
