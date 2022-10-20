@@ -66,7 +66,7 @@ const Header: React.FC = () => {
     };
 
     return (
-        <AnimatePresence initial={false} exitBeforeEnter={true}>
+        <AnimatePresence initial={false} mode="wait">
             {headerVisible && (
                 <motion.header
                     className={`${styles.container} dark:bg-Grey bg-gray-200`}

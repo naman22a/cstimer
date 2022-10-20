@@ -11,7 +11,7 @@ const List: React.FC = () => {
     const listVisible = useStore(state => state.listVisible);
 
     return (
-        <AnimatePresence initial={false} exitBeforeEnter={true}>
+        <AnimatePresence initial={false} mode="wait">
             {listVisible && (
                 <motion.div
                     className={`${styles.container} dark:bg-Grey bg-gray-200`}
