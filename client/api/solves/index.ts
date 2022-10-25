@@ -1,6 +1,6 @@
 import API from '..';
 import { showError } from '../../utils';
-import { Solve } from './types';
+import { CreateSolveDto, Solve } from './types';
 
 export const getSolves = async (): Promise<Solve[]> => {
     try {
@@ -9,5 +9,19 @@ export const getSolves = async (): Promise<Solve[]> => {
     } catch (error) {
         showError();
         return [];
+    }
+};
+
+export const createSolve = async (
+    data: CreateSolveDto
+): Promise<Solve | null> => {
+    try {
+        const res = await API.post('solves', data);
+        console.log(res);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+        showError();
+        return null;
     }
 };

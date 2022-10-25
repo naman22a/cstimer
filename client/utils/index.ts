@@ -31,11 +31,6 @@ export const isEmail = (email: string) => {
     );
 };
 
-export const convertPuzzleType = (puzzleType: PuzzleType) => {
-    const puzzleTypeArray = ['3x3', '2x2', '4x4', '5x5', '6x6', '7x7'];
-    return puzzleTypeArray[puzzleType];
-};
-
 export const convertNumberType = (type: string) => {
     const map: Record<string, PuzzleType> = {
         '3x3': PuzzleType.THREE,
@@ -50,7 +45,7 @@ export const convertNumberType = (type: string) => {
 };
 
 export function scrambleGenrator(type: PuzzleType): string {
-    const { length, range } = puzzleTypeMap.get(convertPuzzleType(type));
+    const { length, range } = puzzleTypeMap.get(type)!;
 
     const notations: string[] = [];
 

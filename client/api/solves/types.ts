@@ -1,16 +1,16 @@
 export enum Status {
-    OK,
-    PLUS2,
-    DNF
+    OK = 'OK',
+    PLUS2 = 'PLUS2',
+    DNF = 'DNF'
 }
 
 export enum PuzzleType {
-    THREE,
-    TWO,
-    FOUR,
-    FIVE,
-    SIX,
-    SEVEN
+    THREE = 'THREE',
+    TWO = 'TWO',
+    FOUR = 'FOUR',
+    FIVE = 'FIVE',
+    SIX = 'SIX',
+    SEVEN = 'SEVEN'
 }
 
 export interface Solve {
@@ -23,4 +23,11 @@ export interface Solve {
     sessionId: number;
     createdAt: string;
     updatedAt: string;
+}
+
+export interface CreateSolveDto {
+    time: string;
+    scramble: string;
+    status?: any;
+    puzzleType?: any;
 }

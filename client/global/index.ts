@@ -1,4 +1,5 @@
 import { Variants } from 'framer-motion';
+import { PuzzleType } from '../api/solves/types';
 
 export const notationMatrix = [
     ['U', "U'", 'U2'],
@@ -21,40 +22,51 @@ export const notationMatrix = [
     ['3Bw', "3Bw'", '3Bw2']
 ] as const;
 
-const puzzleTypeObject = [
+const puzzleTypeObject: {
+    length: number;
+    range: [number, number];
+    type: PuzzleType;
+}[] = [
     {
         length: 15,
         range: [1, 6],
-        type: '2x2'
+        type: PuzzleType.TWO
     },
     {
         length: 25,
         range: [1, 6],
-        type: '3x3'
+        type: PuzzleType.THREE
     },
     {
         length: 30,
         range: [1, 12],
-        type: '4x4'
+        type: PuzzleType.FOUR
     },
     {
         length: 35,
         range: [1, 12],
-        type: '5x5'
+        type: PuzzleType.FIVE
     },
     {
         length: 40,
         range: [1, 18],
-        type: '6x6'
+        type: PuzzleType.SIX
     },
     {
         length: 45,
         range: [1, 18],
-        type: '7x7'
+        type: PuzzleType.SEVEN
     }
 ];
 
-export let puzzleTypeMap = new Map();
+export let puzzleTypeMap = new Map<
+    PuzzleType,
+    {
+        length: number;
+        range: [number, number];
+        type: PuzzleType;
+    }
+>();
 
 for (const puzzleObj of puzzleTypeObject) {
     puzzleTypeMap.set(puzzleObj.type, puzzleObj);

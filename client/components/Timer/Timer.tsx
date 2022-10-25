@@ -6,10 +6,20 @@ import { useStore } from '@store';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
+import { Status } from '../../api/solves/types';
+import { scrambleGenrator } from '@utils';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import * as api from '@api';
 dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
 const Timer: React.FC = () => {
+    const { mutateAsync: createSolve } = useMutation(
+        ['solves', 'create'],
+        api.solves.createSolve
+    );
+    const queryClient = useQueryClient();
+
     const scramble = useStore(state => state.scramble);
     const puzzleType = useStore(state => state.puzzleType);
     const setScramble = useStore(state => state.setScramble);
@@ -56,6 +66,38 @@ const Timer: React.FC = () => {
             startTimer();
         } else {
             stopTimer();
+
+            const newSolve = {
+                time:
+                    dayjs(currentTimer).utc().minute() > 0
+                        ? dayjs(currentTimer)
+                              .utc()
+                              .format('m:ss:SSS')
+                              .slice(
+                                  0,
+                                  dayjs(currentTimer).utc().format('m:ss:SSS')
+                                      .length - 1
+                              )
+                        : dayjs(currentTimer)
+                              .utc()
+                              .format('s.SSS')
+                              .slice(
+                                  0,
+                                  dayjs(currentTimer).utc().format('s.SSS')
+                                      .length - 1
+                              ),
+                scramble,
+                status: 'OK',
+                puzzleType
+            };
+            // post solve
+            await createSolve(newSolve);
+            await queryClient.invalidateQueries(['solves']);
+
+            // -- make new scramble
+            const newScramble = scrambleGenrator(puzzleType);
+            addScrambleList(newScramble);
+            setScramble(newScramble);
         }
         setStarted(prev => !prev);
     });
