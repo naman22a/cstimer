@@ -4,13 +4,11 @@ import Avg from './Avg/Avg';
 import useKeypress from 'react-use-keypress';
 import { useStore } from '@store';
 import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
 import utc from 'dayjs/plugin/utc';
 import { Status } from '../../api/solves/types';
 import { scrambleGenrator } from '@utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as api from '@api';
-dayjs.extend(relativeTime);
 dayjs.extend(utc);
 
 const Timer: React.FC = () => {
