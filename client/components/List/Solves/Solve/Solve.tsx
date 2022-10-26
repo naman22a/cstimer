@@ -10,8 +10,9 @@ interface Props extends ISolve {
     index: number;
 }
 
-const Solve: React.FC<Props> = ({ index, time, status }) => {
+const Solve: React.FC<Props> = ({ index, ...solve }) => {
     const { data: solves } = useQuery(['solves'], api.solves.getSolves);
+    const { id, time, status, scramble, createdAt } = solve;
 
     return (
         <tr>
