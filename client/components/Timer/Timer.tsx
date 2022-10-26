@@ -91,10 +91,10 @@ const Timer: React.FC = () => {
                 {dayjs(currentTimer).utc().minute() > 0
                     ? dayjs(currentTimer)
                           .utc()
-                          .format('m:ss:SSS')
+                          .format('m:ss.SSS')
                           .slice(
                               0,
-                              dayjs(currentTimer).utc().format('m:ss:SSS')
+                              dayjs(currentTimer).utc().format('m:ss.SSS')
                                   .length - 1
                           )
                     : dayjs(currentTimer)

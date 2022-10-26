@@ -41,26 +41,7 @@ const Solve: React.FC<Props> = ({ index, time, status }) => {
                     +
                 </td>
             )}
-            {status === Status.OK && (
-                <td>
-                    {dayjs(time, 'ss.SSS').isValid() &&
-                    isNaN(dayjs(time).minute())
-                        ? dayjs(time, 'ss.SSS')
-                              .format('ss.SSS')
-                              .slice(
-                                  0,
-                                  dayjs(time, 'ss.SSS').format('ss.SSS')
-                                      .length - 1
-                              )
-                        : dayjs(time, 'm:ss.SSS')
-                              .format('m:ss.SSS')
-                              .slice(
-                                  0,
-                                  dayjs(time, 'm:ss.SSS').format('m:ss.SSS')
-                                      .length - 1
-                              )}
-                </td>
-            )}
+            {status === Status.OK && <td>{time.slice(0, time.length - 1)}</td>}
             <td>-</td>
             <td>-</td>
         </tr>

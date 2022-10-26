@@ -1,7 +1,12 @@
 import { FieldError } from '../api/types';
 import toast from 'react-hot-toast';
-import { PuzzleType } from '../api/solves/types';
+import { PuzzleType, Solve, Status } from '../api/solves/types';
 import { notationMatrix, puzzleTypeMap } from '@global';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+import utc from 'dayjs/plugin/utc';
+dayjs.extend(customParseFormat);
+dayjs.extend(utc);
 
 export const mapToErrors = (errors: FieldError[]) => {
     const errorMap: Record<string, string> = {};
@@ -93,3 +98,88 @@ export function scrambleGenrator(type: PuzzleType): string {
     // to convert array to notations to a single string
     return notations.join(' ');
 }
+
+export const mean = (solves: Solve[]): string => {
+    if (solves.length === 0) {
+        return dayjs(0)
+            .format('ss.SSS')
+            .slice(0, dayjs(0).format('ss.SSS').length - 1);
+    }
+
+    if (solves.length === 1) {
+        return dayjs(solves[0].time, 'ss.SSS').isValid() &&
+            isNaN(dayjs(solves[0].time).minute())
+            ? dayjs(solves[0].time, 'ss.SSS')
+                  .format('ss.SSS')
+                  .slice(
+                      0,
+                      dayjs(solves[0].time, 'ss.SSS').format('ss.SSS').length -
+                          1
+                  )
+            : dayjs(solves[0].time, 'm:ss.SSS')
+                  .format('m:ss.SSS')
+                  .slice(
+                      0,
+                      dayjs(solves[0].time, 'm:ss.SSS').format('m:ss.SSS')
+                          .length - 1
+                  );
+    }
+
+    let total = dayjs()
+        .utc()
+        .set('milliseconds', 0)
+        .set('seconds', 0)
+        .set('minutes', 0);
+
+    for (const solve of solves) {
+        const time =
+            dayjs(solve.time, 'ss.SSS').isValid() &&
+            isNaN(dayjs(solve.time, 'm:ss.SSS').minute())
+                ? dayjs(solve.time, 'ss.SSS')
+                : dayjs(solve.time, 'm:ss.SSS');
+
+        switch (solve.status) {
+            case Status.OK:
+                total = total
+                    .add(time.millisecond(), 'milliseconds')
+                    .add(time.second(), 'seconds')
+                    .add(time.minute(), 'minutes');
+                break;
+
+            case Status.PLUS2:
+                total = total
+                    .add(time.millisecond(), 'milliseconds')
+                    .add(time.second(), 'seconds')
+                    .add(time.minute(), 'minutes')
+                    .add(2, 'seconds');
+                break;
+            case Status.DNF:
+                break;
+            default:
+                showError();
+                break;
+        }
+    }
+
+    const inMillisecs = isNaN(total.minute())
+        ? total.millisecond() + total.second() * 1000
+        : total.millisecond() +
+          total.second() * 1000 +
+          total.minute() * 60 * 1000;
+
+    const avg = Math.round(inMillisecs / solves.length);
+    const ms = avg % 1000;
+    const secs = (avg - ms) / 1000;
+    const mins = Math.floor(secs / 60);
+
+    const avgtime = dayjs()
+        .set('milliseconds', ms)
+        .set('seconds', secs - mins * 60)
+        .set('minutes', mins);
+
+    return avgtime.minute() === 0
+        ? avgtime.format('ss.SSS').slice(0, avgtime.format('ss.SSS').length - 1)
+        : avgtime
+              .format('m:ss.SSS')
+              .slice(0, avgtime.format('m:ss.SSS').length - 1);
+};
