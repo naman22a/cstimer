@@ -100,29 +100,11 @@ export function scrambleGenrator(type: PuzzleType): string {
 }
 
 export const mean = (solves: Solve[]): string => {
+    const count = solves.filter(solve => solve.status !== Status.DNF).length;
     if (solves.length === 0) {
         return dayjs(0)
             .format('ss.SSS')
             .slice(0, dayjs(0).format('ss.SSS').length - 1);
-    }
-
-    if (solves.length === 1) {
-        return dayjs(solves[0].time, 'ss.SSS').isValid() &&
-            isNaN(dayjs(solves[0].time).minute())
-            ? dayjs(solves[0].time, 'ss.SSS')
-                  .format('ss.SSS')
-                  .slice(
-                      0,
-                      dayjs(solves[0].time, 'ss.SSS').format('ss.SSS').length -
-                          1
-                  )
-            : dayjs(solves[0].time, 'm:ss.SSS')
-                  .format('m:ss.SSS')
-                  .slice(
-                      0,
-                      dayjs(solves[0].time, 'm:ss.SSS').format('m:ss.SSS')
-                          .length - 1
-                  );
     }
 
     let total = dayjs()
@@ -167,7 +149,7 @@ export const mean = (solves: Solve[]): string => {
           total.second() * 1000 +
           total.minute() * 60 * 1000;
 
-    const avg = Math.round(inMillisecs / solves.length);
+    const avg = Math.round(inMillisecs / count);
     const ms = avg % 1000;
     const secs = (avg - ms) / 1000;
     const mins = Math.floor(secs / 60);
