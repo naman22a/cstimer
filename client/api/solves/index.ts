@@ -17,10 +17,8 @@ export const createSolve = async (
 ): Promise<Solve | null> => {
     try {
         const res = await API.post('solves', data);
-        console.log(res);
         return res.data;
     } catch (error) {
-        console.log(error);
         showError();
         return null;
     }
