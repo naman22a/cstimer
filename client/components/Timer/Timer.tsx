@@ -68,22 +68,8 @@ const Timer: React.FC = () => {
             const newSolve = {
                 time:
                     dayjs(currentTimer).utc().minute() > 0
-                        ? dayjs(currentTimer)
-                              .utc()
-                              .format('m:ss:SSS')
-                              .slice(
-                                  0,
-                                  dayjs(currentTimer).utc().format('m:ss:SSS')
-                                      .length - 1
-                              )
-                        : dayjs(currentTimer)
-                              .utc()
-                              .format('s.SSS')
-                              .slice(
-                                  0,
-                                  dayjs(currentTimer).utc().format('s.SSS')
-                                      .length - 1
-                              ),
+                        ? dayjs(currentTimer).utc().format('m:ss.SSS')
+                        : dayjs(currentTimer).utc().format('ss.SSS'),
                 scramble,
                 status: 'OK',
                 puzzleType
