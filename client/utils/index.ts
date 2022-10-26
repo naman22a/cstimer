@@ -5,8 +5,10 @@ import { notationMatrix, puzzleTypeMap } from '@global';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
+import minMax from 'dayjs/plugin/minMax';
 dayjs.extend(customParseFormat);
 dayjs.extend(utc);
+dayjs.extend(minMax);
 
 export const mapToErrors = (errors: FieldError[]) => {
     const errorMap: Record<string, string> = {};
@@ -164,4 +166,49 @@ export const mean = (solves: Solve[]): string => {
         : avgtime
               .format('m:ss.SSS')
               .slice(0, avgtime.format('m:ss.SSS').length - 1);
+};
+
+export const avg = (solves: Solve[]): string => {
+    let times = solves.map(solve => {
+        if (
+            dayjs(solve.time, 'ss.SSS').isValid() &&
+            isNaN(dayjs(solve.time, 'm:ss.SSS').minute())
+        ) {
+            return { id: solve.id, time: dayjs(solve.time, 'ss.SSS') };
+        } else {
+            return { id: solve.id, time: dayjs(solve.time, 'm:ss.SSS') };
+        }
+    });
+
+    const largest = dayjs.max(times.map(item => item.time));
+    const smallest = dayjs.min(times.map(item => item.time));
+
+    let foundLargest = false;
+    let foundSmallest = false;
+
+    times = times.filter(({ time }) => {
+        if (time === largest) {
+            if (foundLargest) {
+                return true;
+            }
+            foundLargest = true;
+            return false;
+        }
+        if (time === smallest) {
+            if (foundSmallest) {
+                return true;
+            }
+            foundSmallest = true;
+            return false;
+        }
+
+        return true;
+    });
+
+    const filteredSolves = times.map(time => {
+        return solves.filter(solve => solve.id === time.id)[0];
+    });
+    console.log(filteredSolves);
+
+    return mean(filteredSolves);
 };
