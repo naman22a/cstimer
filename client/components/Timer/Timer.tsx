@@ -5,7 +5,6 @@ import useKeypress from 'react-use-keypress';
 import { useStore } from '@store';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { Status } from '../../api/solves/types';
 import { scrambleGenrator } from '@utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as api from '@api';
