@@ -53,3 +53,15 @@ export const updateSolveStatus = async (
         return { ok: false };
     }
 };
+
+export const resetSolves = async (): Promise<OkResponse> => {
+    try {
+        const res = await API.patch(`solves/reset`);
+        return res.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return error.response?.data;
+        }
+        return { ok: false };
+    }
+};
