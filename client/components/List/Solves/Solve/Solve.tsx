@@ -50,7 +50,7 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
     const handleUpdateSolve = async (status: Status) => {
         const res = await updateSolveStatus({ id, status });
         if (res.ok && !res.errors) {
-            notify('Solve deleted sucessfully');
+            notify('Solve updated sucessfully');
             await queryClient.invalidateQueries(['solves']);
         } else {
             showError();
