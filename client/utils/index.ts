@@ -208,7 +208,6 @@ export const avg = (solves: Solve[]): string => {
     const filteredSolves = times.map(time => {
         return solves.filter(solve => solve.id === time.id)[0];
     });
-    console.log(filteredSolves);
 
     return mean(filteredSolves);
 };
