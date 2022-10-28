@@ -7,6 +7,7 @@ import { useStore } from '@store';
 import { convertNumberType, scrambleGenrator } from '@utils';
 import { AnimatePresence, motion } from 'framer-motion';
 import { fade } from '@global';
+import Input from './Input/Input';
 
 const Header: React.FC = () => {
     // dark / light theme toggle
@@ -126,26 +127,11 @@ const Header: React.FC = () => {
                         <span className="ml-3">scramble</span>
                     </div>
                     {f1 === 'input' && (
-                        <div className="flex justify-center items-center flex-col">
-                            <div className="flex justify-center items-center">
-                                <input
-                                    type="text"
-                                    value={inputText}
-                                    onChange={e => setInputText(e.target.value)}
-                                    className="px-3 py-1 bg-gray-300 dark:bg-Black dark:text-white rounded outline-none mr-4"
-                                />
-                                <button
-                                    onClick={handleInputButtonClick}
-                                    className="bg-gray-300 dark:bg-Neon-200 text-sm py-1 px-3 rounded-lg"
-                                >
-                                    Done
-                                </button>
-                            </div>
-                            <p className="text-sm">
-                                do not press spacebar while typing the input
-                                scramble
-                            </p>
-                        </div>
+                        <Input
+                            inputText={inputText}
+                            setInputText={setInputText}
+                            handleInputButtonClick={handleInputButtonClick}
+                        />
                     )}
                     {f1 === 'wca' && <h2>{scramble}</h2>}
                 </motion.header>

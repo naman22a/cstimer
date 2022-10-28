@@ -1,9 +1,9 @@
 import React from 'react';
+import * as api from '@api';
+import { showError } from '@utils';
 import { useQuery } from '@tanstack/react-query';
 import { AiOutlineSearch } from 'react-icons/ai';
 import Solve from './Solve/Solve';
-import * as api from '@api';
-import { showError } from '../../../utils';
 
 const Solves: React.FC = () => {
     const {

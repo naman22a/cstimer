@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-import { Solve as ISolve, Status } from '../../../../api/solves/types';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import * as api from '@api';
+import styles from './Solve.module.scss';
 import dayjs from 'dayjs';
-import customParseFormat from 'dayjs/plugin/customParseFormat';
-import { AiOutlineClose } from 'react-icons/ai';
-import { notify, showError } from '@utils';
+import * as api from '@api';
 import toast from 'react-hot-toast';
+import { notify, showError } from '@utils';
+import { AiOutlineClose } from 'react-icons/ai';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { Solve as ISolve, Status } from '../../../../api/solves/types';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 
 interface Props extends ISolve {
@@ -109,22 +110,19 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                 <td>-</td>
             </tr>
 
-            <tr>
-                <td className="p-0 border-none">
+            <tr className={styles.Modal}>
+                <td>
                     <input
                         type="checkbox"
                         id={`solve-modal-${id}`}
-                        className="hidden"
                         onClick={() => setModalOpen(false)}
                     />
                     <label
                         htmlFor={`solve-modal-${id}`}
-                        className={`modal cursor-pointer ${
-                            modalOpen ? 'modal-open' : ''
-                        }`}
+                        className={`modal ${modalOpen ? 'modal-open' : ''}`}
                     >
-                        <label className="bg-gray-200 dark:bg-Grey p-4 md:p-8 rounded-lg relative flex flex-col justify-center items-center mx-5">
-                            <h3 className="text-lg font-bold mb-2">
+                        <label className="bg-gray-200 dark:bg-Grey">
+                            <h3>
                                 {status === Status.DNF && (
                                     <>
                                         {dnfTime}({okTime})
@@ -133,48 +131,41 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                                 {status === Status.PLUS2 && <>{plus2Time}</>}
                                 {status === Status.OK && <>{okTime}</>}
                             </h3>
-                            <div className="my-2 flex flex-wrap gap-3">
-                                <button
-                                    className="md:text-lg px-3 py-1 text-white bg-green-600 rounded-lg"
-                                    onClick={okSolve}
-                                >
+                            <div className={styles.btns}>
+                                <button className={styles.ok} onClick={okSolve}>
                                     OK
                                 </button>
                                 <button
-                                    className="md:text-lg px-3 py-1 text-white bg-yellow-500 rounded-lg"
+                                    className={styles.plus2}
                                     onClickCapture={plus2Solve}
                                 >
                                     +2
                                 </button>
                                 <button
-                                    className="md:text-lg px-3 py-1 text-white bg-orange-600 rounded-lg"
+                                    className={styles.dnf}
                                     onClick={dnfSolve}
                                 >
                                     DNF
                                 </button>
                                 <button
-                                    className="md:text-lg px-3 py-1 text-white bg-red-600 rounded-lg"
+                                    className={styles.delete}
                                     onClick={() => handleDeleteSolve()}
                                 >
                                     <AiOutlineClose />
                                 </button>
                             </div>
-                            <div className="my-2">
-                                <span className="font-semibold text-lg mr-2 text-Neon-100">
-                                    Scramble:{' '}
-                                </span>
+                            <div>
+                                <span>Scramble: </span>
                                 {scramble}
                             </div>
-                            <div className="my-2">
-                                <span className="font-semibold text-lg mr-2 text-Neon-100">
-                                    Date:{' '}
-                                </span>
+                            <div>
+                                <span>Date: </span>
                                 {dayjs(createdAt).format(
                                     'DD/MM/YYYY hh:mm:ss A'
                                 )}
                             </div>
                             <button
-                                className="mt-2 uppercase py-2 px-4 text-white dark:bg-Neon-200 bg-Neon-100 rounded-lg"
+                                className=" dark:bg-Neon-200 bg-Neon-100"
                                 onClick={() => setModalOpen(false)}
                             >
                                 close
@@ -182,9 +173,9 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                         </label>
                     </label>
                 </td>
-                <td className="p-0"></td>
-                <td className="p-0"></td>
-                <td className="p-0"></td>
+                <td></td>
+                <td></td>
+                <td></td>
             </tr>
         </>
     );

@@ -1,0 +1,7 @@
+.container {
+    @apply my-3 flex flex-col justify-center items-center text-sm md:text-base;
+
+    h4 {
+        @apply font-semibold md:font-bold;
+    }
+}

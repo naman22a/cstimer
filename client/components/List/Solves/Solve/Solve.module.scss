@@ -1,0 +1,59 @@
+.Modal {
+    td {
+        @apply p-0 border-none;
+
+        &:nth-child(1) {
+            > input {
+                @apply hidden;
+            }
+
+            > label {
+                @apply cursor-pointer;
+
+                > label {
+                    @apply p-4 md:p-8 rounded-lg relative flex flex-col justify-center items-center mx-5;
+
+                    > h3 {
+                        @apply text-lg font-bold mb-2;
+                    }
+
+                    > .btns {
+                        @apply my-2 flex flex-wrap gap-3;
+
+                        button {
+                            @apply md:text-lg px-3 py-1 text-white rounded-lg;
+
+                            &.ok {
+                                @apply bg-green-600;
+                            }
+
+                            &.plus2 {
+                                @apply bg-yellow-500;
+                            }
+
+                            &.dnf {
+                                @apply bg-orange-500;
+                            }
+
+                            &.delete {
+                                @apply bg-red-600;
+                            }
+                        }
+                    }
+
+                    > div:not(.btns) {
+                        @apply my-2;
+
+                        span {
+                            @apply font-semibold text-lg mr-2 text-Neon-100;
+                        }
+                    }
+
+                    > button:last-child {
+                        @apply mt-2 uppercase py-2 px-4 text-white rounded-lg;
+                    }
+                }
+            }
+        }
+    }
+}

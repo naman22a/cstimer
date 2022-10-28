@@ -1,7 +1,7 @@
 import React from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as api from '@api';
-import { showError } from '../../../../utils';
+import { showError } from '@utils';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 const SelectMenu: React.FC = () => {
     const queryClient = useQueryClient();

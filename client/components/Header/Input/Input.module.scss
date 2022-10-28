@@ -1,0 +1,19 @@
+.container {
+    @apply flex justify-center items-center flex-col;
+
+    .input {
+        @apply flex justify-center items-center;
+
+        input {
+            @apply px-3 py-1 rounded outline-none mr-4;
+        }
+
+        button {
+            @apply text-sm py-1 px-3 rounded-lg;
+        }
+    }
+
+    p {
+        @apply text-sm;
+    }
+}

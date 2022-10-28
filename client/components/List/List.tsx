@@ -1,11 +1,11 @@
 import React from 'react';
-import styles from './List.module.scss';
-import Session from './Session/Session';
-import Solves from './Solves/Solves';
-import Stats from './Stats/Stats';
 import { useStore } from '@store';
 import { AnimatePresence, motion } from 'framer-motion';
 import { fade } from '@global';
+import styles from './List.module.scss';
+import Session from './Session/Session';
+import Stats from './Stats/Stats';
+import Solves from './Solves/Solves';
 
 const List: React.FC = () => {
     const listVisible = useStore(state => state.listVisible);
