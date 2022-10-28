@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { Solve as ISolve, Status } from '../../../../api/solves/types';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import * as api from '@api';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { AiOutlineClose } from 'react-icons/ai';
+import { notify, showError } from '@utils';
 dayjs.extend(customParseFormat);
 
 interface Props extends ISolve {
@@ -15,6 +16,26 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
     const { data: solves } = useQuery(['solves'], api.solves.getSolves);
     const { id, time, status, scramble, createdAt } = solve;
     const [modalOpen, setModalOpen] = useState(false);
+    const { mutateAsync: deleteSolve } = useMutation(
+        ['solves', 'delete', id],
+        api.solves.deleteSolve
+    );
+    const queryClient = useQueryClient();
+
+    const handleDeleteSolve = async () => {
+        const yes = confirm('Are you sure you want to delete the solve');
+
+        if (yes) {
+            const res = await deleteSolve(id);
+            if (res.ok && !res.errors) {
+                notify('Solve deleted sucessfully');
+                await queryClient.invalidateQueries(['solves']);
+            } else {
+                showError();
+            }
+        }
+        setModalOpen(false);
+    };
 
     return (
         <>
@@ -111,7 +132,10 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                         <button className="md:text-lg px-3 py-1 text-white bg-orange-600 rounded-lg">
                             DNF
                         </button>
-                        <button className="md:text-lg px-3 py-1 text-white bg-red-600 rounded-lg">
+                        <button
+                            className="md:text-lg px-3 py-1 text-white bg-red-600 rounded-lg"
+                            onClick={() => handleDeleteSolve()}
+                        >
                             <AiOutlineClose />
                         </button>
                     </div>
