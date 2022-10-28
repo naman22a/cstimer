@@ -2,7 +2,7 @@ import axios from 'axios';
 import API from '..';
 import { showError } from '../../utils';
 import { OkResponse } from '../types';
-import { CreateSolveDto, Solve } from './types';
+import { CreateSolveDto, Solve, UpdateSolveStatusDto } from './types';
 
 export const getSolves = async (): Promise<Solve[]> => {
     try {
@@ -29,6 +29,22 @@ export const createSolve = async (
 export const deleteSolve = async (id: number): Promise<OkResponse> => {
     try {
         const res = await API.delete(`solves/${id}`);
+        return res.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            return error.response?.data;
+        }
+        return { ok: false };
+    }
+};
+
+export const updateSolveStatus = async (
+    data: UpdateSolveStatusDto
+): Promise<OkResponse> => {
+    const { id, status } = data;
+
+    try {
+        const res = await API.patch(`solves/status/${id}`, { status });
         return res.data;
     } catch (error) {
         if (axios.isAxiosError(error)) {

@@ -26,9 +26,9 @@ export class SolvesService {
         return await this.prisma.solve.deleteMany({ where });
     }
 
-    async updateStatus({ sessionId, userId, status }: UpdateSolveOptions) {
+    async updateStatus({ sessionId, userId, status, id }: UpdateSolveOptions) {
         return await this.prisma.solve.updateMany({
-            where: { sessionId, userId },
+            where: { sessionId, userId, id },
             data: { status },
         });
     }

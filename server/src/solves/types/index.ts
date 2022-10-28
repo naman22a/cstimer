@@ -55,4 +55,6 @@ export class UpdateSolveDto {
     status: Status;
 }
 
-export interface UpdateSolveOptions extends UpdateSolveDto, FindSolveOptions {}
+export interface UpdateSolveOptions extends UpdateSolveDto, FindSolveOptions {
+    id: number;
+}

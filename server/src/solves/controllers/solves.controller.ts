@@ -55,6 +55,7 @@ export class SolvesController {
 
     @Patch('status/:id')
     async updateSolve(
+        @Param('id', ParseIntPipe) id: number,
         @Body() { status }: UpdateSolveDto,
         @Req() req: Request,
     ): Promise<OkResponse> {
@@ -63,6 +64,7 @@ export class SolvesController {
             sessionId,
             userId,
             status,
+            id,
         });
         if (x.count === 0) {
             return {

@@ -31,3 +31,8 @@ export interface CreateSolveDto {
     status?: any;
     puzzleType?: any;
 }
+
+export interface UpdateSolveStatusDto {
+    id: number;
+    status: Status;
+}

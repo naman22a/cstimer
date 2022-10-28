@@ -6,6 +6,7 @@ import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import { AiOutlineClose } from 'react-icons/ai';
 import { notify, showError } from '@utils';
+import toast from 'react-hot-toast';
 dayjs.extend(customParseFormat);
 
 interface Props extends ISolve {
@@ -13,19 +14,22 @@ interface Props extends ISolve {
 }
 
 const Solve: React.FC<Props> = ({ index, ...solve }) => {
-    const { data: solves } = useQuery(['solves'], api.solves.getSolves);
     const { id, time, status, scramble, createdAt } = solve;
+
+    const queryClient = useQueryClient();
+    const { data: solves } = useQuery(['solves'], api.solves.getSolves);
     const [modalOpen, setModalOpen] = useState(false);
+
+    // delete solve
     const { mutateAsync: deleteSolve } = useMutation(
         ['solves', 'delete', id],
         api.solves.deleteSolve
     );
-    const queryClient = useQueryClient();
-
     const handleDeleteSolve = async () => {
         const yes = confirm('Are you sure you want to delete the solve');
 
         if (yes) {
+            const toastId = toast.loading('Loading...');
             const res = await deleteSolve(id);
             if (res.ok && !res.errors) {
                 notify('Solve deleted sucessfully');
@@ -33,9 +37,27 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
             } else {
                 showError();
             }
+            toast.dismiss(toastId);
         }
         setModalOpen(false);
     };
+
+    // update solve status
+    const { mutateAsync: updateSolveStatus } = useMutation(
+        ['solves', 'update-status', id],
+        api.solves.updateSolveStatus
+    );
+    const handleUpdateSolve = async (status: Status) => {
+        const toastId = toast.loading('Loading...');
+        await updateSolveStatus({ id, status });
+        await queryClient.invalidateQueries(['solves']);
+        toast.dismiss(toastId);
+        // setIsOpen(false);
+    };
+
+    const okSolve = () => handleUpdateSolve(Status.OK);
+    const plus2Solve = () => handleUpdateSolve(Status.PLUS2);
+    const dnfSolve = () => handleUpdateSolve(Status.DNF);
 
     return (
         <>
@@ -90,7 +112,9 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
             >
                 <label className="bg-gray-200 dark:bg-Grey p-4 md:p-8 rounded-lg relative flex flex-col justify-center items-center mx-5">
                     <h3 className="text-lg font-bold mb-2">
-                        {status === Status.DNF && <>DNF({time})</>}
+                        {status === Status.DNF && (
+                            <>DNF({time.slice(0, time.length - 1)})</>
+                        )}
                         {status === Status.PLUS2 && (
                             <>
                                 {dayjs(time, 'ss.SSS').isValid() &&
@@ -123,13 +147,22 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                         )}
                     </h3>
                     <div className="my-2 flex flex-wrap gap-3">
-                        <button className="md:text-lg px-3 py-1 text-white bg-green-600 rounded-lg">
+                        <button
+                            className="md:text-lg px-3 py-1 text-white bg-green-600 rounded-lg"
+                            onClick={okSolve}
+                        >
                             OK
                         </button>
-                        <button className="md:text-lg px-3 py-1 text-white bg-yellow-500 rounded-lg">
+                        <button
+                            className="md:text-lg px-3 py-1 text-white bg-yellow-500 rounded-lg"
+                            onClickCapture={plus2Solve}
+                        >
                             +2
                         </button>
-                        <button className="md:text-lg px-3 py-1 text-white bg-orange-600 rounded-lg">
+                        <button
+                            className="md:text-lg px-3 py-1 text-white bg-orange-600 rounded-lg"
+                            onClick={dnfSolve}
+                        >
                             DNF
                         </button>
                         <button
