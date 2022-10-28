@@ -61,6 +61,40 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
     const plus2Solve = () => handleUpdateSolve(Status.PLUS2);
     const dnfSolve = () => handleUpdateSolve(Status.DNF);
 
+    console.log();
+
+    // time formats
+    const okTime = time.slice(0, time.length - 1);
+    const plus2Time = dayjs(time, 'm:ss.SSS').isValid()
+        ? dayjs(time, 'm:ss.SSS')
+              .add(2, 'seconds')
+              .format('m:ss.SSS')
+              .slice(
+                  0,
+                  dayjs(time, 'm:ss.SSS').add(2, 'seconds').format('m:ss.SSS')
+                      .length - 1
+              ) + '+'
+        : dayjs(time, 'ss.SSS').isValid()
+        ? dayjs(time, 'ss.SSS').add(2, 'seconds').minute() === 0
+            ? dayjs(time, 'ss.SSS')
+                  .add(2, 'seconds')
+                  .format('ss.SSS')
+                  .slice(
+                      0,
+                      dayjs(time, 'ss.SSS').add(2, 'seconds').format('ss.SSS')
+                          .length - 1
+                  ) + '+'
+            : dayjs(time, 'ss.SSS')
+                  .add(2, 'seconds')
+                  .format('m:ss.SSS')
+                  .slice(
+                      0,
+                      dayjs(time, 'ss.SSS').add(2, 'seconds').format('m:ss.SSS')
+                          .length - 1
+                  ) + '+'
+        : 'Invaild time';
+    const dnfTime = 'DNF';
+
     return (
         <>
             <tr
@@ -68,34 +102,9 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                 onClick={() => setModalOpen(!modalOpen)}
             >
                 <td>{solves?.length! - index}</td>
-                {status === Status.DNF && <td>DNF</td>}
-                {status === Status.PLUS2 && (
-                    <td>
-                        {dayjs(time, 'ss.SSS').isValid() &&
-                        dayjs(time, 'm:ss.SSS').add(2, 'seconds').minute() === 0
-                            ? dayjs(time, 'ss.SSS')
-                                  .add(2, 'seconds')
-                                  .format('s.SSS')
-                                  .slice(
-                                      0,
-                                      dayjs(time, 's.SSS').format('s.SSS')
-                                          .length - 1
-                                  )
-                            : dayjs(time, 'm:ss.SSS')
-                                  .add(2, 'seconds')
-                                  .format('m:ss.SSS')
-                                  .slice(
-                                      0,
-                                      dayjs(time, 'ss.SSS')
-                                          .add(2, 'seconds')
-                                          .format('m:ss.SSS').length - 1
-                                  )}
-                        +
-                    </td>
-                )}
-                {status === Status.OK && (
-                    <td>{time.slice(0, time.length - 1)}</td>
-                )}
+                {status === Status.DNF && <td>{dnfTime}</td>}
+                {status === Status.PLUS2 && <td>{plus2Time}</td>}
+                {status === Status.OK && <td>{okTime}</td>}
                 <td>-</td>
                 <td>-</td>
             </tr>
@@ -117,41 +126,12 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                         <label className="bg-gray-200 dark:bg-Grey p-4 md:p-8 rounded-lg relative flex flex-col justify-center items-center mx-5">
                             <h3 className="text-lg font-bold mb-2">
                                 {status === Status.DNF && (
-                                    <>DNF({time.slice(0, time.length - 1)})</>
-                                )}
-                                {status === Status.PLUS2 && (
                                     <>
-                                        {dayjs(time, 'ss.SSS').isValid() &&
-                                        dayjs(time, 'm:ss.SSS')
-                                            .add(2, 'seconds')
-                                            .minute() === 0
-                                            ? dayjs(time, 'ss.SSS')
-                                                  .add(2, 'seconds')
-                                                  .format('s.SSS')
-                                                  .slice(
-                                                      0,
-                                                      dayjs(
-                                                          time,
-                                                          's.SSS'
-                                                      ).format('s.SSS').length -
-                                                          1
-                                                  )
-                                            : dayjs(time, 'm:ss.SSS')
-                                                  .add(2, 'seconds')
-                                                  .format('m:ss.SSS')
-                                                  .slice(
-                                                      0,
-                                                      dayjs(time, 'ss.SSS')
-                                                          .add(2, 'seconds')
-                                                          .format('m:ss.SSS')
-                                                          .length - 1
-                                                  )}
-                                        +
+                                        {dnfTime}({okTime})
                                     </>
                                 )}
-                                {status === Status.OK && (
-                                    <>{time.slice(0, time.length - 1)}</>
-                                )}
+                                {status === Status.PLUS2 && <>{plus2Time}</>}
+                                {status === Status.OK && <>{okTime}</>}
                             </h3>
                             <div className="my-2 flex flex-wrap gap-3">
                                 <button
