@@ -118,7 +118,7 @@ const Header: React.FC = () => {
                         </span>
                         <span className="mx-1">/</span>
                         <span
-                            className="text-Neon-200 dark:text-Neon-100 cursor-pointer"
+                            className="text-Neon-100 cursor-pointer font-semibold"
                             onClick={handleNextClick}
                         >
                             next
