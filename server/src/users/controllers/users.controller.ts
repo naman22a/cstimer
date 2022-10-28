@@ -3,7 +3,9 @@ import { Request } from 'express';
 import { AuthGuard } from '../../auth/auth.guard';
 import { UsersService } from '../services/users.service';
 import { excludeUserDetails } from '../utils';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('users')
 @Controller('users')
 export class UsersController {
     constructor(private usersService: UsersService) {}

@@ -16,7 +16,9 @@ import { AuthGuard } from '../../auth/auth.guard';
 import { OkResponse } from '../../types';
 import { SessionsService } from '../services/sessions.service';
 import { CreateSessionDto, RenameSessionDto } from '../types';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('sessions')
 @UseGuards(AuthGuard)
 @Controller('sessions')
 export class SessionsController {

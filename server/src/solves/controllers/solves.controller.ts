@@ -16,7 +16,9 @@ import { AuthGuard } from '../../auth/auth.guard';
 import { OkResponse } from '../../types';
 import { SolvesService } from '../services/solves.service';
 import { CreateSolveDto, UpdateSolveDto } from '../types';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('solves')
 @UseGuards(AuthGuard)
 @Controller('solves')
 export class SolvesController {

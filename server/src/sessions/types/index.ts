@@ -1,3 +1,4 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
 
 export interface FindOneByIdOptions {
@@ -6,6 +7,10 @@ export interface FindOneByIdOptions {
 }
 
 export class CreateSessionDto {
+    @ApiProperty({
+        example: 'cfop',
+        description: 'The name of the session',
+    })
     @IsNotEmpty()
     name: string;
 }
@@ -16,6 +21,10 @@ export interface DeleteOneByIdOptions {
 }
 
 export class RenameSessionDto {
+    @ApiProperty({
+        example: 'roux',
+        description: 'The new name of the session',
+    })
     @IsNotEmpty()
     name: string;
 }
