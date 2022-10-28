@@ -72,7 +72,7 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                 {status === Status.PLUS2 && (
                     <td>
                         {dayjs(time, 'ss.SSS').isValid() &&
-                        dayjs(time, 'ss.SSS').add(2, 'seconds').minute() === 0
+                        dayjs(time, 'm:ss.SSS').add(2, 'seconds').minute() === 0
                             ? dayjs(time, 'ss.SSS')
                                   .add(2, 'seconds')
                                   .format('s.SSS')
@@ -81,7 +81,7 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                                       dayjs(time, 's.SSS').format('s.SSS')
                                           .length - 1
                                   )
-                            : dayjs(time, 'ss.SSS')
+                            : dayjs(time, 'm:ss.SSS')
                                   .add(2, 'seconds')
                                   .format('m:ss.SSS')
                                   .slice(
@@ -122,7 +122,7 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                                 {status === Status.PLUS2 && (
                                     <>
                                         {dayjs(time, 'ss.SSS').isValid() &&
-                                        dayjs(time, 'ss.SSS')
+                                        dayjs(time, 'm:ss.SSS')
                                             .add(2, 'seconds')
                                             .minute() === 0
                                             ? dayjs(time, 'ss.SSS')
@@ -136,7 +136,7 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
                                                       ).format('s.SSS').length -
                                                           1
                                                   )
-                                            : dayjs(time, 'ss.SSS')
+                                            : dayjs(time, 'm:ss.SSS')
                                                   .add(2, 'seconds')
                                                   .format('m:ss.SSS')
                                                   .slice(
