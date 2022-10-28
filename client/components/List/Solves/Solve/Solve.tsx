@@ -48,11 +48,8 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
         api.solves.updateSolveStatus
     );
     const handleUpdateSolve = async (status: Status) => {
-        const toastId = toast.loading('Loading...');
         await updateSolveStatus({ id, status });
         await queryClient.invalidateQueries(['solves']);
-        toast.dismiss(toastId);
-        // setIsOpen(false);
     };
 
     const okSolve = () => handleUpdateSolve(Status.OK);
