@@ -1,0 +1,43 @@
+.modalPanel {
+    @apply w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all flex flex-col justify-center items-center;
+
+    h3 {
+        @apply text-lg font-bold mb-2;
+    }
+
+    .btns {
+        @apply my-2 flex flex-wrap gap-3;
+
+        button {
+            @apply md:text-lg px-3 py-1 text-white rounded-lg;
+
+            &.ok {
+                @apply bg-green-600;
+            }
+
+            &.plus2 {
+                @apply bg-yellow-500;
+            }
+
+            &.dnf {
+                @apply bg-orange-500;
+            }
+
+            &.delete {
+                @apply bg-red-600;
+            }
+        }
+    }
+
+    > div:not(.btns) {
+        @apply my-2;
+
+        span {
+            @apply font-semibold text-lg mr-2 text-Neon-100;
+        }
+    }
+
+    > button:last-child {
+        @apply mt-2 uppercase py-2 px-4 text-white rounded-lg;
+    }
+}
