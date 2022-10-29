@@ -37,38 +37,30 @@ const Settings: React.FC = () => {
         }
     };
 
+    const btnStyle =
+        'bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200';
+
     return (
         <div className={styles.container}>
-            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
+            <button className={btnStyle}>
                 <IoIosSettings />
             </button>
-            <button
-                className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200"
-                onClick={() => handleLogout()}
-            >
+            <button className={btnStyle} onClick={() => handleLogout()}>
                 <FiLogOut />
             </button>
-            <button
-                className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200"
-                onClick={toggleHeader}
-            >
+            <button className={btnStyle} onClick={toggleHeader}>
                 <BsFillGrid3X3GapFill />
             </button>
 
-            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
-                CsTimer
-            </button>
+            <button className={btnStyle}>CsTimer</button>
 
-            <button
-                className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200"
-                onClick={toggleList}
-            >
+            <button className={btnStyle} onClick={toggleList}>
                 <AiOutlineUnorderedList />
             </button>
-            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
+            <button className={btnStyle}>
                 <HiOutlineCurrencyRupee />
             </button>
-            <button className="bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200">
+            <button className={btnStyle}>
                 <HiOutlineAdjustments />
             </button>
         </div>
