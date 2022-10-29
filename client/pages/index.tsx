@@ -1,8 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import * as api from '@api';
-import { Header, List, Loading, Settings, Timer } from '../components';
+import { useQuery } from '@tanstack/react-query';
+import { Header, List, Loading, Settings, Timer, ToolBox } from '../components';
 import styles from '../styles/index.module.scss';
 
 const index: NextPage = () => {
@@ -27,6 +27,7 @@ const index: NextPage = () => {
             <Header />
             <List />
             <Timer />
+            <ToolBox />
         </div>
     );
 };

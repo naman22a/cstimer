@@ -19,6 +19,7 @@ const Settings: React.FC = () => {
     const toggleList = useStore(state => state.toggleList);
     const aboutModalOpen = useStore(state => state.aboutModalOpen);
     const toggleAboutModal = useStore(state => state.toggleAboutModal);
+    const toggleToolBox = useStore(state => state.toggleToolBox);
 
     // logout
     const router = useRouter();
@@ -66,7 +67,7 @@ const Settings: React.FC = () => {
                 <button className={btnStyle}>
                     <HiOutlineCurrencyRupee />
                 </button>
-                <button className={btnStyle}>
+                <button className={btnStyle} onClick={toggleToolBox}>
                     <HiOutlineAdjustments />
                 </button>
             </div>

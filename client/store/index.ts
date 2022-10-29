@@ -18,6 +18,9 @@ interface State {
     listVisible: boolean;
     toggleList: () => void;
 
+    toolBoxVisible: boolean;
+    toggleToolBox: () => void;
+
     aboutModalOpen: boolean;
     toggleAboutModal: () => void;
 }
@@ -36,6 +39,10 @@ export const useStore = createStore<State>(set => ({
 
     headerVisible: true,
     toggleHeader: () => set(state => ({ headerVisible: !state.headerVisible })),
+
+    toolBoxVisible: false,
+    toggleToolBox: () =>
+        set(state => ({ toolBoxVisible: !state.toolBoxVisible })),
 
     listVisible: true,
     toggleList: () => set(state => ({ listVisible: !state.listVisible })),
