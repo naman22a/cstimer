@@ -105,7 +105,7 @@ const SolveModal: React.FC<Props> = props => {
                             leaveTo="opacity-0 scale-95"
                         >
                             <Dialog.Panel
-                                className={`bg-gray-200 dark:bg-Grey ${styles.modalPanel}`}
+                                className={`bg-gray-200 dark:bg-Grey modal ${styles.modalPanel}`}
                             >
                                 <Dialog.Title as="h3">
                                     {status === Status.DNF && (
