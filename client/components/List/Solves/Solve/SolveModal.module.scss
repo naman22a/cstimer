@@ -1,6 +1,4 @@
 .modalPanel {
-    @apply w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all flex flex-col justify-center items-center;
-
     h3 {
         @apply text-lg font-bold mb-2;
     }

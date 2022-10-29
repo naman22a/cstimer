@@ -11,11 +11,14 @@ import { useMutation } from '@tanstack/react-query';
 import { toast } from 'react-hot-toast';
 import { notify, showError } from '@utils';
 import { useStore } from '@store';
+import AboutModal from './AboutModal/AboutModal';
 
 const Settings: React.FC = () => {
     // Toggle btns
     const toggleHeader = useStore(state => state.toggleHeader);
     const toggleList = useStore(state => state.toggleList);
+    const aboutModalOpen = useStore(state => state.aboutModalOpen);
+    const toggleAboutModal = useStore(state => state.toggleAboutModal);
 
     // logout
     const router = useRouter();
@@ -41,29 +44,35 @@ const Settings: React.FC = () => {
         'bg-gray-200 dark:bg-Grey hover:bg-Neon-100 dark:hover:bg-Neon-200';
 
     return (
-        <div className={styles.container}>
-            <button className={btnStyle}>
-                <IoIosSettings />
-            </button>
-            <button className={btnStyle} onClick={() => handleLogout()}>
-                <FiLogOut />
-            </button>
-            <button className={btnStyle} onClick={toggleHeader}>
-                <BsFillGrid3X3GapFill />
-            </button>
+        <>
+            <div className={styles.container}>
+                <button className={btnStyle}>
+                    <IoIosSettings />
+                </button>
+                <button className={btnStyle} onClick={() => handleLogout()}>
+                    <FiLogOut />
+                </button>
+                <button className={btnStyle} onClick={toggleHeader}>
+                    <BsFillGrid3X3GapFill />
+                </button>
 
-            <button className={btnStyle}>CsTimer</button>
+                <button className={btnStyle} onClick={toggleAboutModal}>
+                    CsTimer
+                </button>
 
-            <button className={btnStyle} onClick={toggleList}>
-                <AiOutlineUnorderedList />
-            </button>
-            <button className={btnStyle}>
-                <HiOutlineCurrencyRupee />
-            </button>
-            <button className={btnStyle}>
-                <HiOutlineAdjustments />
-            </button>
-        </div>
+                <button className={btnStyle} onClick={toggleList}>
+                    <AiOutlineUnorderedList />
+                </button>
+                <button className={btnStyle}>
+                    <HiOutlineCurrencyRupee />
+                </button>
+                <button className={btnStyle}>
+                    <HiOutlineAdjustments />
+                </button>
+            </div>
+            {/* ------------- Modals ------------- */}
+            <AboutModal isOpen={aboutModalOpen} closeModal={toggleAboutModal} />
+        </>
     );
 };
 

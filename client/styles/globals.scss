@@ -29,4 +29,8 @@
     .toast {
         @apply dark:bg-Grey dark:text-white text-black bg-gray-100;
     }
+
+    .modal {
+        @apply w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all flex flex-col justify-center items-center;
+    }
 }
