@@ -1,5 +1,5 @@
 import React from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { useStore } from '@store';
 import {
     Chart as ChartJS,
@@ -12,9 +12,10 @@ import {
     Legend
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { useQuery } from '@tanstack/react-query';
-import * as api from '@api';
 import dayjs from 'dayjs';
+import * as api from '@api';
+import { fade } from '@global';
+import { useQuery } from '@tanstack/react-query';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 dayjs.extend(customParseFormat);
 ChartJS.register(
@@ -93,9 +94,15 @@ const ToolBox: React.FC = () => {
     return (
         <AnimatePresence initial={false} mode="wait">
             {toolBoxVisible && (
-                <div className="absolute md:bottom-0 bottom-10 right-0 bg-gray-200 dark:bg-Grey p-6 rounded-2xl">
+                <motion.div
+                    className="absolute md:bottom-0 bottom-10 right-0 bg-gray-200 dark:bg-Grey p-6 rounded-2xl"
+                    variants={fade}
+                    initial="hidden"
+                    animate="visible"
+                    exit="exit"
+                >
                     <Line options={options} data={data} />
-                </div>
+                </motion.div>
             )}
         </AnimatePresence>
     );
