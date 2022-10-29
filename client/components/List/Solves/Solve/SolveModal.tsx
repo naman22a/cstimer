@@ -13,7 +13,7 @@ dayjs.extend(customParseFormat);
 
 interface Props {
     modalOpen: boolean;
-    setModalOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    closeModal: () => void;
     okTime: string;
     plus2Time: string;
     dnfTime: string;
@@ -27,7 +27,7 @@ const SolveModal: React.FC<Props> = props => {
     const queryClient = useQueryClient();
     const {
         modalOpen,
-        setModalOpen,
+        closeModal,
         okTime,
         plus2Time,
         dnfTime,
@@ -56,7 +56,7 @@ const SolveModal: React.FC<Props> = props => {
             }
             toast.dismiss(toastId);
         }
-        setModalOpen(false);
+        closeModal();
     };
 
     // update solve status
@@ -80,11 +80,7 @@ const SolveModal: React.FC<Props> = props => {
 
     return (
         <Transition appear show={modalOpen} as={Fragment}>
-            <Dialog
-                as="div"
-                className="relative z-10"
-                onClose={() => setModalOpen(false)}
-            >
+            <Dialog as="div" className="relative z-10" onClose={closeModal}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
@@ -160,7 +156,7 @@ const SolveModal: React.FC<Props> = props => {
                                 </div>
                                 <button
                                     className=" dark:bg-Neon-200 bg-Neon-100"
-                                    onClick={() => setModalOpen(false)}
+                                    onClick={closeModal}
                                 >
                                     close
                                 </button>

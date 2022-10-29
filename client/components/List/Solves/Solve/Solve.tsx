@@ -67,7 +67,7 @@ const Solve: React.FC<Props> = ({ index, ...solve }) => {
             <SolveModal
                 {...{
                     modalOpen,
-                    setModalOpen,
+                    closeModal,
                     okTime,
                     plus2Time,
                     dnfTime,
