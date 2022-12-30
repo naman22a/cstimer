@@ -27,3 +27,7 @@
     -   Redis
     -   Sessions
     -   Node mailer
+
+# License
+
+[MIT LICENSED](https://github.com/namanArora1022/cstimer/blob/master/LICENSE)
