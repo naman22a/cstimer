@@ -49,6 +49,7 @@ const AboutModal: React.FC<Props> = ({ isOpen, closeModal }) => {
                                         className="text-Neon-100"
                                         href="https://cstimer.net/"
                                         target="_blank"
+                                        rel="noreferrer"
                                     >
                                         CsTimer
                                     </a>
@@ -69,6 +70,7 @@ const AboutModal: React.FC<Props> = ({ isOpen, closeModal }) => {
                                     className="bg-purple-500 text-white py-2 px-4 rounded mt-2 flex items-center cursor-pointer"
                                     href="https://github.com/namanArora1022/cstimer"
                                     target="_blank"
+                                    rel="noreferrer"
                                 >
                                     <AiFillGithub className="mr-2" />
                                     <span>Source Code</span>

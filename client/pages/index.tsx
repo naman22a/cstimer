@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { Header, List, Loading, Settings, Timer, ToolBox } from '../components';
 import styles from '../styles/index.module.scss';
 
-const index: NextPage = () => {
+const Index: NextPage = () => {
     const {
         data: user,
         isLoading,
@@ -32,4 +32,4 @@ const index: NextPage = () => {
     );
 };
 
-export default index;
+export default Index;

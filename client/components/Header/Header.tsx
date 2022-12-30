@@ -29,7 +29,7 @@ const Header: React.FC = () => {
         const newScramble = scrambleGenrator(puzzleType);
         addScrambleList(newScramble);
         setScramble(newScramble);
-    }, []);
+    }, [addScrambleList, puzzleType, setScramble]);
 
     // function for last scramble
     const handleLastClick = () => {
