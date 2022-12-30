@@ -42,25 +42,26 @@ async function bootstrap() {
     );
 
     // MIDDLWARE
+    app.enableCors({
+        origin: process.env.WEBSITE_DOMAIN,
+        credentials: true,
+    });
     app.use(
         session({
             name: COOKIE_NAME,
             secret: process.env.SESSION_SECRET,
             resave: false,
             cookie: {
-                sameSite: 'none',
+                sameSite: 'lax',
                 httpOnly: true,
                 secure: __prod__,
                 maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
             },
             store: new RedisStore({ client: redis }),
             saveUninitialized: false,
+            proxy: __prod__,
         }),
     );
-    app.enableCors({
-        origin: process.env.WEBSITE_DOMAIN,
-        credentials: true,
-    });
 
     // Swagger
     const config = new DocumentBuilder()
