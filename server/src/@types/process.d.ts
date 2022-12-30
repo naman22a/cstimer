@@ -5,6 +5,7 @@ declare global {
             PORT: string;
             DATABASE_URL: string;
             SESSION_SECRET: string;
+            WEBSITE_DOMAIN: string;
         }
     }
 }
