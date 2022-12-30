@@ -1,0 +1,6 @@
+[submodule "client"]
+	path = client
+	url = https://github.com/namanArora1022/cstimer-frontend
+[submodule "server"]
+	path = server
+	url = https://github.com/namanArora1022/cstimer-backend
