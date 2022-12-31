@@ -52,6 +52,7 @@ async function bootstrap() {
             secret: process.env.SESSION_SECRET,
             resave: false,
             cookie: {
+                domain: process.env.WEBSITE_DOMAIN,
                 sameSite: 'lax',
                 httpOnly: true,
                 secure: __prod__,
