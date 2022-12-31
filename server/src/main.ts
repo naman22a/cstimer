@@ -53,6 +53,7 @@ async function bootstrap() {
             resave: false,
             cookie: {
                 domain: process.env.WEBSITE_DOMAIN,
+                path: '/login',
                 sameSite: 'lax',
                 httpOnly: true,
                 secure: __prod__,
