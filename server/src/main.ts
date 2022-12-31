@@ -57,7 +57,7 @@ async function bootstrap() {
                 secure: __prod__,
                 maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
                 domain: __prod__ ? process.env.WEBSITE_DOMAIN : undefined,
-                path: __prod__ ? '/login' : undefined,
+                path: __prod__ ? '/' : undefined,
             },
             store: new RedisStore({ client: redis }),
             saveUninitialized: false,
