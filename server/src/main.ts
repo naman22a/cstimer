@@ -52,12 +52,11 @@ async function bootstrap() {
             secret: process.env.SESSION_SECRET,
             resave: false,
             cookie: {
-                domain: process.env.WEBSITE_DOMAIN,
-                path: '/login',
                 sameSite: 'lax',
                 httpOnly: true,
                 secure: __prod__,
                 maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+                domain: __prod__ ? process.env.WEBSITE_DOMAIN : undefined,
             },
             store: new RedisStore({ client: redis }),
             saveUninitialized: false,
