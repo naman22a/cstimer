@@ -2,6 +2,7 @@ import React from 'react';
 import * as api from '@api';
 import { showError } from '@utils';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { toast } from 'react-hot-toast';
 
 const SelectMenu: React.FC = () => {
     const queryClient = useQueryClient();
@@ -99,24 +100,59 @@ const SelectMenu: React.FC = () => {
 
         if (value === 'new') {
             const name = prompt('Enter session name');
-            await createSession(name!);
+            const toastId = toast.loading('Loading...');
+            try {
+                await createSession(name!);
+            } catch (error) {
+                showError();
+            } finally {
+                toast.dismiss(toastId);
+            }
         } else if (value === 'delete') {
             if (sessions?.length! <= 1) {
                 showError("Can't delete session");
             } else {
                 const yes = confirm('Do you want to delete this session ?');
                 if (yes) {
-                    await deleteSession(session?.id!);
+                    const toastId = toast.loading('Loading...');
+                    try {
+                        await deleteSession(session?.id!);
+                    } catch (error) {
+                        showError();
+                    } finally {
+                        toast.dismiss(toastId);
+                    }
                 }
             }
         } else if (value === 'rename') {
             const name = prompt('Enter the new name');
-            await renameSession(name!);
+            const toastId = toast.loading('Loading...');
+            try {
+                await renameSession(name!);
+            } catch (error) {
+                showError();
+            } finally {
+                toast.dismiss(toastId);
+            }
         } else {
-            await changeSession(id);
+            const toastId = toast.loading('Loading...');
+            try {
+                await changeSession(id);
+            } catch (error) {
+                showError();
+            } finally {
+                toast.dismiss(toastId);
+            }
         }
 
-        await queryClient.invalidateQueries(['solves']);
+        const toastId = toast.loading('Loading...');
+        try {
+            await queryClient.invalidateQueries(['solves']);
+        } catch (error) {
+            showError();
+        } finally {
+            toast.dismiss(toastId);
+        }
     };
 
     return (
