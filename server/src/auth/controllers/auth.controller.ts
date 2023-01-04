@@ -23,6 +23,7 @@ import {
     CONFIRMATION_PREFIX,
     COOKIE_NAME,
     FORGOT_PASSWORD_PREFIX,
+    __prod__,
 } from '../../constants';
 import { Request, Response } from 'express';
 import { AuthGuard } from '../auth.guard';
@@ -164,7 +165,13 @@ export class AuthController {
                         ],
                     });
                 }
-                res.clearCookie(COOKIE_NAME);
+                res.clearCookie(COOKIE_NAME, {
+                    sameSite: 'lax',
+                    httpOnly: true,
+                    secure: __prod__,
+                    maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+                    domain: __prod__ ? process.env.COOKIE_DOMAIN : undefined,
+                });
                 resolve({ ok: true });
             }),
         );
