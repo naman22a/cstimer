@@ -1,4 +1,5 @@
 import { NestFactory } from '@nestjs/core';
+import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
 import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import { ValidationError } from 'class-validator';
@@ -16,8 +17,10 @@ declare module 'express-session' {
 }
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
+    const app = await NestFactory.create<NestExpressApplication>(AppModule);
     const RedisStore = connectRedis(session);
+
+    app.set('trust proxy', 1);
 
     // validation
     app.useGlobalPipes(
