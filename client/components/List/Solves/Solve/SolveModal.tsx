@@ -65,10 +65,12 @@ const SolveModal: React.FC<Props> = props => {
         api.solves.updateSolveStatus
     );
     const handleUpdateSolve = async (status: Status) => {
+        const toastId = toast.loading('Loading...');
         const res = await updateSolveStatus({ id, status });
         if (res.ok && !res.errors) {
             notify('Solve updated sucessfully');
             await queryClient.invalidateQueries(['solves']);
+            toast.dismiss(toastId);
         } else {
             showError();
         }

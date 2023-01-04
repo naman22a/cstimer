@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { BiReset } from 'react-icons/bi';
 import { notify, showError } from '@utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
 
 const ResetButton: React.FC = () => {
     const queryClient = useQueryClient();
@@ -13,12 +14,20 @@ const ResetButton: React.FC = () => {
     );
 
     const handleReset = async () => {
-        const res = await resetSolves();
-        if (res.ok && !res.errors) {
-            notify('All Solves deleted sucessfully');
-            await queryClient.invalidateQueries(['solves']);
-        } else {
+        const toastId = toast.loading('Loading...');
+        try {
+            const res = await resetSolves();
+
+            if (res.ok && !res.errors) {
+                notify('All Solves deleted sucessfully');
+                await queryClient.invalidateQueries(['solves']);
+            } else {
+                showError();
+            }
+        } catch (error) {
             showError();
+        } finally {
+            toast.dismiss(toastId);
         }
     };
 

@@ -5,9 +5,10 @@ import useKeypress from 'react-use-keypress';
 import { useStore } from '@store';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
-import { scrambleGenrator } from '@utils';
+import { scrambleGenrator, showError } from '@utils';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as api from '@api';
+import toast from 'react-hot-toast';
 dayjs.extend(utc);
 
 const Timer: React.FC = () => {
@@ -73,9 +74,18 @@ const Timer: React.FC = () => {
                 status: 'OK',
                 puzzleType
             };
-            // post solve
-            await createSolve(newSolve);
-            await queryClient.invalidateQueries(['solves']);
+
+            const toastId = toast.loading('Loading...');
+
+            try {
+                // post solve
+                await createSolve(newSolve);
+                await queryClient.invalidateQueries(['solves']);
+            } catch (error) {
+                showError();
+            } finally {
+                toast.dismiss(toastId);
+            }
 
             // -- make new scramble
             const newScramble = scrambleGenrator(puzzleType);
