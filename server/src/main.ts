@@ -59,6 +59,7 @@ async function bootstrap() {
                 httpOnly: true,
                 secure: __prod__,
                 maxAge: 1000 * 60 * 60 * 24 * 365 * 10,
+                domain: __prod__ ? process.env.COOKIE_DOMAIN : undefined,
             },
             store: new RedisStore({ client: redis }),
             saveUninitialized: false,

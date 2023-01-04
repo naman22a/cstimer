@@ -7,6 +7,7 @@ declare global {
             SESSION_SECRET: string;
             WEBSITE_DOMAIN: string;
             REDIS_URL: string;
+            COOKIE_DOMAIN: string;
         }
     }
 }
