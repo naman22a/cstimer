@@ -9,6 +9,7 @@ import * as cookieParser from 'cookie-parser';
 import { COOKIE_NAME, __prod__ } from './constants';
 import { redis } from './redis';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
+import helmet from 'helmet';
 
 declare module 'express-session' {
     interface SessionData {
@@ -46,8 +47,9 @@ async function bootstrap() {
     );
 
     // MIDDLWARE
+    app.use(helmet());
     app.enableCors({
-        origin: process.env.WEBSITE_DOMAIN,
+        origin: process.env.CORS_ORIGIN,
         credentials: true,
     });
     app.use(cookieParser());

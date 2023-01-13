@@ -5,7 +5,7 @@ declare global {
             PORT: string;
             DATABASE_URL: string;
             SESSION_SECRET: string;
-            WEBSITE_DOMAIN: string;
+            CORS_ORIGIN: string;
             REDIS_URL: string;
             COOKIE_DOMAIN: string;
         }
