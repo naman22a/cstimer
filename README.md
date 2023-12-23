@@ -44,6 +44,35 @@ Cstimer is a rubik's cube timer web application it can calculate mean, averages,
     -   ⚙️ Dotenv - Supports environment variables
     -   🦋 Prettier - Opinionated Code Formatter
 
+## 🚶🏻‍♂️ Getting started
+
+```bash
+# 1. Clone the repository
+$ git clone https://github.com/naman22a/cstimer
+
+# 2. Enter your newly-cloned folder.
+$ cd cstimer
+
+# 3. Create Environment variables file.
+$ cp .env.sample .env
+
+# 4. Install dependencies (preferred: yarn)
+$ yarn install
+```
+
+## 🏃🏻‍♂️ Running the app
+
+```bash
+# development
+$ yarn run dev
+
+# build
+$ yarn build
+
+# production
+$ yarn run start
+```
+
 ## 🗒️ License
 
 CsTimer is [MIT LICENSED](./LICENSE)
