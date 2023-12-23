@@ -1,4 +1,4 @@
-# CsTimer
+# ⌚ CsTimer
 
 > Professional Rubik's Cube Speedsolving/Training Timer
 
