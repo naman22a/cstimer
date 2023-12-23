@@ -73,6 +73,11 @@ $ yarn build
 $ yarn run start
 ```
 
+## 📫 Stay in touch
+
+-   Author - [Naman Arora](https://namanarora.vercel.app)
+-   Twitter - [@namanarora1022](https://twitter.com/namanarora1022)
+
 ## 🗒️ License
 
 CsTimer is [MIT LICENSED](./LICENSE)
