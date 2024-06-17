@@ -81,4 +81,4 @@ $ yarn run start
 
 ## 🗒️ License
 
-CsTimer is [MIT LICENSED](./LICENSE)
+CsTimer is [GPL V3](./LICENSE)
