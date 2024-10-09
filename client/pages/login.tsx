@@ -8,6 +8,7 @@ import * as api from '@api';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { isEmail, mapToErrors, notify, showError } from '@utils';
 import toast from 'react-hot-toast';
+import Link from 'next/link';
 
 const Login: NextPage = () => {
     const router = useRouter();
@@ -101,6 +102,12 @@ const Login: NextPage = () => {
                     </Form>
                 )}
             </Formik>
+            <p className="mt-3">
+                Don't have an account already ?{' '}
+                <span className="text-Neon-100 underline">
+                    <Link href="/register">Register</Link>
+                </span>
+            </p>
         </div>
     );
 };

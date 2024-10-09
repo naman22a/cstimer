@@ -6,6 +6,7 @@ import styles from '../styles/auth.module.scss';
 import * as api from '@api';
 import { useMutation } from '@tanstack/react-query';
 import { mapToErrors, notify } from '@utils';
+import Link from 'next/link';
 
 const Register: NextPage = () => {
     const { mutateAsync: register } = useMutation(
@@ -68,6 +69,12 @@ const Register: NextPage = () => {
                     </Form>
                 )}
             </Formik>
+            <p className="mt-3">
+                Do have an account already ?{' '}
+                <span className="text-Neon-100 underline">
+                    <Link href="/login">Login</Link>
+                </span>
+            </p>
         </div>
     );
 };
