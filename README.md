@@ -55,7 +55,7 @@ $ git clone https://github.com/naman22a/cstimer
 $ cd cstimer
 
 # 3. Create Environment variables file.
-$ cp .env.sample .env
+$ cp .env.example .env
 
 # 4. Install dependencies (preferred: yarn)
 $ yarn install
