@@ -34,7 +34,7 @@ const Settings: React.FC = () => {
         if (res.ok && !res.errors) {
             notify('Logged out');
             toast.dismiss(toastId);
-            await router.push('/login');
+            await router.push('/auth');
         } else {
             showError();
             toast.dismiss(toastId);
