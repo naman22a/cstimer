@@ -234,7 +234,12 @@ export class AuthController {
         // check if user already exists
         const userExists = await this.usersService.findOneByEmail(email);
         if (userExists) {
+            // set default session
+            const session = await this.sessionService.findAnyOne(userExists.id);
+
+            req.session.sessionId = session.id;
             req.session.userId = userExists.id;
+
             return res.redirect('http://localhost:3000');
         }
 
@@ -250,8 +255,8 @@ export class AuthController {
 
         // create default session
         const defaultSession = await this.sessionService.create(user.id, '1');
-        req.session.sessionId = defaultSession.id;
 
+        req.session.sessionId = defaultSession.id;
         req.session.userId = user.id;
 
         res.redirect('http://localhost:3000');
