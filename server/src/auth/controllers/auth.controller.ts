@@ -233,7 +233,10 @@ export class AuthController {
 
         // check if user already exists
         const userExists = await this.usersService.findOneByEmail(email);
-        if (userExists) return res.redirect('http://localhost:3000');
+        if (userExists) {
+            req.session.userId = userExists.id;
+            return res.redirect('http://localhost:3000');
+        }
 
         // hash the password
         const hashedPassword = await argon2.hash(id);
@@ -249,7 +252,7 @@ export class AuthController {
         const defaultSession = await this.sessionService.create(user.id, '1');
         req.session.sessionId = defaultSession.id;
 
-        req.session.userId = (user as any).id;
+        req.session.userId = user.id;
 
         res.redirect('http://localhost:3000');
     }
