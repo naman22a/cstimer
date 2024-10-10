@@ -1,6 +1,7 @@
 import {
     Body,
     Controller,
+    Get,
     Param,
     ParseUUIDPipe,
     Post,
@@ -26,9 +27,9 @@ import {
     __prod__,
 } from '../../constants';
 import { Request, Response } from 'express';
-import { AuthGuard } from '../auth.guard';
 import { SessionsService } from '../../sessions/services/sessions.service';
 import { ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from '@nestjs/passport';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -147,7 +148,7 @@ export class AuthController {
     }
 
     @Post('logout')
-    @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard('github'))
     logout(
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response,
@@ -212,5 +213,43 @@ export class AuthController {
         await redis.del(FORGOT_PASSWORD_PREFIX + token);
 
         return { ok: true };
+    }
+
+    @Get('github')
+    @UseGuards(AuthGuard('github'))
+    async githubLogin() {}
+
+    @Get('github/callback')
+    @UseGuards(AuthGuard('github'))
+    async githubCallback(@Req() req: Request, @Res() res: Response) {
+        const { email, username, id } = req.user as {
+            id: string;
+            username: string;
+            email: string;
+            avatar: string;
+            accessToken: string;
+        };
+
+        // check if user already exists
+        const userExists = await this.usersService.findOneByEmail(email);
+        if (userExists) return res.redirect('http://localhost:3000');
+
+        // hash the password
+        const hashedPassword = await argon2.hash(id);
+
+        // save user to database
+        const user = await this.usersService.create({
+            name: username,
+            email,
+            password: hashedPassword,
+        });
+
+        // create default session
+        const defaultSession = await this.sessionService.create(user.id, '1');
+        req.session.sessionId = defaultSession.id;
+
+        req.session.userId = (user as any).id;
+
+        res.redirect('http://localhost:3000');
     }
 }

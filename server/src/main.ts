@@ -48,11 +48,11 @@ async function bootstrap() {
 
     // MIDDLWARE
     app.use(helmet());
+    app.use(cookieParser());
     app.enableCors({
-        origin: process.env.CORS_ORIGIN,
+        origin: process.env.CORS_ORIGIN ?? 'http://localhost:3000',
         credentials: true,
     });
-    app.use(cookieParser());
     app.use(
         session({
             name: COOKIE_NAME,
