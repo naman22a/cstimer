@@ -29,7 +29,8 @@ import {
 import { Request, Response } from 'express';
 import { SessionsService } from '../../sessions/services/sessions.service';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthGuard } from '@nestjs/passport';
+import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
+import { AuthGuard } from '../auth.guard';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -148,7 +149,7 @@ export class AuthController {
     }
 
     @Post('logout')
-    @UseGuards(AuthGuard('github'))
+    @UseGuards(AuthGuard)
     logout(
         @Req() req: Request,
         @Res({ passthrough: true }) res: Response,
@@ -216,11 +217,11 @@ export class AuthController {
     }
 
     @Get('github')
-    @UseGuards(AuthGuard('github'))
+    @UseGuards(PassportAuthGuard('github'))
     async githubLogin() {}
 
     @Get('github/callback')
-    @UseGuards(AuthGuard('github'))
+    @UseGuards(PassportAuthGuard('github'))
     async githubCallback(@Req() req: Request, @Res() res: Response) {
         const { email, username, id } = req.user as {
             id: string;

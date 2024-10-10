@@ -15,11 +15,11 @@ import AboutModal from './AboutModal/AboutModal';
 
 const Settings: React.FC = () => {
     // Toggle btns
-    const toggleHeader = useStore(state => state.toggleHeader);
-    const toggleList = useStore(state => state.toggleList);
-    const aboutModalOpen = useStore(state => state.aboutModalOpen);
-    const toggleAboutModal = useStore(state => state.toggleAboutModal);
-    const toggleToolBox = useStore(state => state.toggleToolBox);
+    const toggleHeader = useStore((state) => state.toggleHeader);
+    const toggleList = useStore((state) => state.toggleList);
+    const aboutModalOpen = useStore((state) => state.aboutModalOpen);
+    const toggleAboutModal = useStore((state) => state.toggleAboutModal);
+    const toggleToolBox = useStore((state) => state.toggleToolBox);
 
     // logout
     const router = useRouter();
