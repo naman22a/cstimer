@@ -8,13 +8,14 @@ Cstimer is a rubik's cube timer web application it can calculate mean, averages,
 
 ## 🪶 Features covered
 
--   📱 supports multiple puzzles like 2x2, 3x3 upto 7x7.
--   📈 displays charts to show improvement over time.
--   ✒️ create sessions to organize your solves.
--   🧠 generates random scrambles with my own unique algorithm.
+-   📱 Supports multiple puzzles like 2x2, 3x3 upto 7x7.
+-   📈 Displays charts to show improvement over time.
+-   ✒️ Create sessions to organize your solves.
+-   🧠 Generates random scrambles with my own unique algorithm.
 -   ✅ OK / +2 / ❌ DNF solves
--   🖋️ calculates mean, averages of 5, 12 and over all mean and average of the session
--   🔒 authentication support
+-   🖋️ Calculates mean, averages of 5, 12 and over all mean and average of the session
+-   🔒 Authentication support
+-   🔒 Github OAuth
 
 ## ⚙️ Technologies used
 
