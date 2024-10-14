@@ -18,7 +18,7 @@ const Index: NextPage = () => {
     }
 
     if (isError || !user) {
-        router.push('/login');
+        router.push('/auth');
     }
 
     return (
