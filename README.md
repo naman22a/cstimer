@@ -41,6 +41,7 @@ Cstimer is a rubik's cube timer web application it can calculate mean, averages,
     -   🐘 PostgresSQL
     -   #️⃣ Argon2
     -   🚇 Redis
+    -   🐋 Docker
     -   ✒️ Sessions
     -   📫 Node mailer
     -   ⚙️ Dotenv - Supports environment variables
