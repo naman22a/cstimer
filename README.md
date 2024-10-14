@@ -4,7 +4,7 @@
 
 Cstimer is a rubik's cube timer web application it can calculate mean, averages, create sessions as well as show graphs for analytics.It have support for various puzzles like 2x2, 3x3, 4x4, 5x5, 6x6 and 7x7.
 
-![cstimer](./cstimer.png)
+![cstimer](./assets/cstimer.png)
 
 ## 🪶 Features covered
 
