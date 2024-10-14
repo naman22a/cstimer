@@ -47,7 +47,7 @@ Cstimer is a rubik's cube timer web application it can calculate mean, averages,
     -   ⚙️ Dotenv - Supports environment variables
     -   🦋 Prettier - Opinionated Code Formatter
 
-## 🚶🏻‍♂️ Getting started
+## 🚶🏻‍♂️ Getting started and 🏃🏻‍♂️ Running the app
 
 ```bash
 # 1. Clone the repository
@@ -56,24 +56,14 @@ $ git clone https://github.com/naman22a/cstimer
 # 2. Enter your newly-cloned folder.
 $ cd cstimer
 
-# 3. Create Environment variables file.
+# 3. Create Environment variables files for client and server.
 $ cp .env.example .env
 
-# 4. Install dependencies (preferred: yarn)
-$ yarn install
-```
+# 4. Run Docker Compose
+$ docker compose up
 
-## 🏃🏻‍♂️ Running the app
-
-```bash
-# development
-$ yarn run dev
-
-# build
-$ yarn build
-
-# production
-$ yarn run start
+# 5. Stop Docker Compose
+$ docker compose down
 ```
 
 ## 📫 Stay in touch
