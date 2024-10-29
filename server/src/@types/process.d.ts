@@ -8,6 +8,8 @@ declare global {
             CORS_ORIGIN: string;
             REDIS_URL: string;
             COOKIE_DOMAIN: string;
+            GITHUB_CLIENT_ID: string;
+            GITHUB_CLIENT_SECRET: string;
         }
     }
 }
