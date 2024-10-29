@@ -8,7 +8,6 @@ COPY yarn.lock .
 RUN yarn install
 
 COPY . .
-COPY .env.production .env
 RUN yarn prisma generate
 RUN yarn build
 

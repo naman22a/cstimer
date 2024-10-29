@@ -11,7 +11,7 @@ const Auth: NextPage = () => {
             <button
                 className="mt-10 px-6 py-2 bg-Neon-200 rounded-sm font-semibold flex items-center gap-3"
                 onClick={() =>
-                    (window.location.href = 'http://localhost:5000/auth/github')
+                    (window.location.href = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/github`)
                 }
             >
                 Sign in with Github <BsGithub className="h-5 w-5" />
