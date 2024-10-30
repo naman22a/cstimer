@@ -30,13 +30,10 @@ services:
       - '5000:5000'
 
   client:
-    environment:
-      - NEXT_PUBLIC_API_ENDPOINT=http://localhost:5000
+    env_file: "./client/.env.production"
     build:
       context: ./client
       dockerfile: Dockerfile
-      args:
-        NEXT_PUBLIC_API_ENDPOINT: http://localhost:5000
     container_name: cstimer-client
     depends_on:
       - server

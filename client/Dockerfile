@@ -4,6 +4,7 @@ WORKDIR /usr/src/client
 
 COPY package.json .
 COPY yarn.lock .
+COPY .env.production .env
 
 RUN yarn install
 
