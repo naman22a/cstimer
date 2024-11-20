@@ -56,7 +56,7 @@ $ git clone https://github.com/naman22a/cstimer
 # 2. Enter your newly-cloned folder.
 $ cd cstimer
 
-# 3. Create Environment variables files for client and server.
+# 3. Create Environment variables files.
 $ cp .env.example .env
 
 # 4. Run Docker Compose
