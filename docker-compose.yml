@@ -1,11 +1,10 @@
 services:
   db:
     image: postgres
-    env_file: "./server/.env.production"
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_DB: cstimer
+      POSTGRES_DB: ${POSTGRES_DB}
     volumes:
       - ./pgdata:/var/lib/postgresql/data
     ports:
@@ -18,9 +17,9 @@ services:
       - '6379:6379'
 
   server:
-    env_file: "./server/.env.production"
+    env_file: ".env"
     build:
-      context: ./server
+      context: ./server/
       dockerfile: Dockerfile
     container_name: cstimer-server
     depends_on:
@@ -30,9 +29,9 @@ services:
       - '5000:5000'
 
   client:
-    env_file: "./client/.env.production"
+    env_file: ".env"
     build:
-      context: ./client
+      context: ./client/
       dockerfile: Dockerfile
     container_name: cstimer-client
     depends_on:
