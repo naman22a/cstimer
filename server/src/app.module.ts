@@ -1,9 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth.module';
-import { SessionsModule } from './sessions/sessions.module';
-import { SolvesModule } from './solves/solves.module';
 import { ThrottlerModule } from '@nestjs/throttler';
+import { AuthModule } from './auth';
+import { UsersModule } from './shared';
+import { SessionsModule, SolvesModule } from './modules';
 
 @Module({
     imports: [
@@ -11,8 +10,8 @@ import { ThrottlerModule } from '@nestjs/throttler';
             ttl: 60,
             limit: 20,
         }),
-        UsersModule,
         AuthModule,
+        UsersModule,
         SessionsModule,
         SolvesModule,
     ],

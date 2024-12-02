@@ -1,6 +1,6 @@
 import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { execSync } from 'child_process';
+// import { execSync } from 'child_process';
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -8,7 +8,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         let retries = 5;
         while (retries) {
             try {
-                execSync('npx prisma migrate deploy', { stdio: 'inherit' });
+                // execSync('npx prisma migrate deploy', { stdio: 'inherit' });
                 await this.$connect();
                 break;
             } catch (error) {

@@ -6,8 +6,8 @@ import { ValidationError } from 'class-validator';
 import * as session from 'express-session';
 import * as connectRedis from 'connect-redis';
 import * as cookieParser from 'cookie-parser';
-import { COOKIE_NAME, __prod__ } from './constants';
-import { redis } from './redis';
+import { COOKIE_NAME, __prod__ } from './common/constants';
+import { redis } from './common/redis';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import helmet from 'helmet';
 

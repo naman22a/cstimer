@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
-import { UsersModule } from '../users/users.module';
+import { UsersModule } from '../shared';
 import { AuthController } from './controllers/auth.controller';
 import { AuthService } from './services/auth.service';
-import { SessionsModule } from '../sessions/sessions.module';
+import { SessionsModule } from '../modules';
 import { PassportModule } from '@nestjs/passport';
 import { GithubStrategy } from './github.strategy';
 

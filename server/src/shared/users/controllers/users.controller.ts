@@ -1,6 +1,6 @@
 import { Controller, Get, Req, UseGuards } from '@nestjs/common';
 import { Request } from 'express';
-import { AuthGuard } from '../../auth/auth.guard';
+import { AuthGuard } from '../../../auth/auth.guard';
 import { UsersService } from '../services/users.service';
 import { excludeUserDetails } from '../utils';
 import { ApiTags } from '@nestjs/swagger';
