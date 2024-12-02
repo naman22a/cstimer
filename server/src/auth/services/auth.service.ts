@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as nodemailer from 'nodemailer';
 import { v4 } from 'uuid';
-import { CONFIRMATION_PREFIX, FORGOT_PASSWORD_PREFIX } from '../../constants';
-import { redis } from '../../redis';
+import {
+    CONFIRMATION_PREFIX,
+    FORGOT_PASSWORD_PREFIX,
+} from '../../common/constants';
+import { redis } from '../../common/redis';
 
 @Injectable()
 export class AuthService {

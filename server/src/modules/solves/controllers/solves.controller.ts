@@ -12,8 +12,8 @@ import {
     UseGuards,
 } from '@nestjs/common';
 import { Request } from 'express';
-import { AuthGuard } from '../../auth/auth.guard';
-import { OkResponse } from '../../types';
+import { AuthGuard } from '../../../auth/auth.guard';
+import { OkResponse } from '../../../common/types';
 import { SolvesService } from '../services/solves.service';
 import { CreateSolveDto, UpdateSolveDto } from '../types';
 import { ApiTags } from '@nestjs/swagger';

@@ -9,8 +9,8 @@ import {
     Res,
     UseGuards,
 } from '@nestjs/common';
-import { OkResponse } from '../../types';
-import { UsersService } from '../../users/services/users.service';
+import { OkResponse } from '../../common/types';
+import { UsersService } from '../../shared';
 import {
     ForgotPasswordDto,
     LoginDto,
@@ -19,15 +19,15 @@ import {
 } from '../types';
 import * as argon2 from 'argon2';
 import { AuthService } from '../services/auth.service';
-import { redis } from '../../redis';
+import { redis } from '../../common/redis';
 import {
     CONFIRMATION_PREFIX,
     COOKIE_NAME,
     FORGOT_PASSWORD_PREFIX,
     __prod__,
-} from '../../constants';
+} from '../../common/constants';
 import { Request, Response } from 'express';
-import { SessionsService } from '../../sessions/services/sessions.service';
+import { SessionsService } from '../../modules';
 import { ApiTags } from '@nestjs/swagger';
 import { AuthGuard as PassportAuthGuard } from '@nestjs/passport';
 import { AuthGuard } from '../auth.guard';
