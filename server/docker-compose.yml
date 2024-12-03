@@ -19,7 +19,7 @@ services:
   server:
     env_file: ".env"
     build:
-      context: ./server/
+      context: ./
       dockerfile: Dockerfile
     container_name: cstimer-server
     depends_on:
@@ -27,14 +27,3 @@ services:
       - redis
     ports:
       - '5000:5000'
-
-  client:
-    env_file: ".env"
-    build:
-      context: ./client/
-      dockerfile: Dockerfile
-    container_name: cstimer-client
-    depends_on:
-      - server
-    ports:
-      - '3000:3000'
