@@ -1,6 +1,5 @@
 node_modules
 notes.md
-pgdata
 .env
 .env.*
 !.env.example
