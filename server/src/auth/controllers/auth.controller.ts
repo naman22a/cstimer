@@ -220,9 +220,55 @@ export class AuthController {
     @UseGuards(PassportAuthGuard('github'))
     async githubLogin() {}
 
+    @Get('google')
+    @UseGuards(PassportAuthGuard('google'))
+    async googleLogin() {}
+
     @Get('github/callback')
     @UseGuards(PassportAuthGuard('github'))
     async githubCallback(@Req() req: Request, @Res() res: Response) {
+        const { email, username, id } = req.user as {
+            id: string;
+            username: string;
+            email: string;
+            avatar: string;
+            accessToken: string;
+        };
+
+        // check if user already exists
+        const userExists = await this.usersService.findOneByEmail(email);
+        if (userExists) {
+            // set default session
+            const session = await this.sessionService.findAnyOne(userExists.id);
+
+            req.session.sessionId = session.id;
+            req.session.userId = userExists.id;
+
+            return res.redirect(process.env.CORS_ORIGIN);
+        }
+
+        // hash the password
+        const hashedPassword = await argon2.hash(id);
+
+        // save user to database
+        const user = await this.usersService.create({
+            name: username,
+            email,
+            password: hashedPassword,
+        });
+
+        // create default session
+        const defaultSession = await this.sessionService.create(user.id, '1');
+
+        req.session.sessionId = defaultSession.id;
+        req.session.userId = user.id;
+
+        res.redirect(process.env.CORS_ORIGIN);
+    }
+
+    @Get('google/callback')
+    @UseGuards(PassportAuthGuard('google'))
+    async googleCallback(@Req() req: Request, @Res() res: Response) {
         const { email, username, id } = req.user as {
             id: string;
             username: string;
