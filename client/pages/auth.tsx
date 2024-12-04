@@ -9,7 +9,7 @@ const Auth: NextPage = () => {
             </h1>
 
             <button
-                className="mt-10 px-6 py-2 bg-Neon-200 rounded-sm font-semibold flex items-center gap-3"
+                className="mt-10 px-6 py-2 bg-Neon-200 rounded-sm font-semibold flex items-center gap-3 text-white"
                 onClick={() =>
                     (window.location.href = `${process.env.NEXT_PUBLIC_API_ENDPOINT}/auth/github`)
                 }
