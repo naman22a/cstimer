@@ -15,7 +15,7 @@ Cstimer is a rubik's cube timer web application it can calculate mean, averages,
 -   ✅ OK / +2 / ❌ DNF solves
 -   🖋️ Calculates mean, averages of 5, 12 and over all mean and average of the session
 -   🔒 Authentication support
--   🔒 Github OAuth
+-   🔒 Google and Github OAuth
 
 ## ⚙️ Technologies used
 
