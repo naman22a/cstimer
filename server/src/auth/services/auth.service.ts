@@ -40,12 +40,12 @@ export class AuthService {
             'EX',
             3600 * 24 * 3, // 3 days
         );
-        return `http://localhost:3000/confirm/${token}`;
+        return `${process.env.CORS_ORIGIN}/confirm/${token}`;
     }
 
     async createForgotPasswordUrl(userId: number) {
         const token = v4();
         await redis.set(FORGOT_PASSWORD_PREFIX + token, userId, 'EX', 3600 * 5); // 5 hrs
-        return `http://localhost:3000/reset-password/${token}`;
+        return `${process.env.CORS_ORIGIN}/reset-password/${token}`;
     }
 }

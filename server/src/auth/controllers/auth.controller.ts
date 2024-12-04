@@ -240,7 +240,7 @@ export class AuthController {
             req.session.sessionId = session.id;
             req.session.userId = userExists.id;
 
-            return res.redirect('http://localhost:3000');
+            return res.redirect(process.env.CORS_ORIGIN);
         }
 
         // hash the password
@@ -259,6 +259,6 @@ export class AuthController {
         req.session.sessionId = defaultSession.id;
         req.session.userId = user.id;
 
-        res.redirect('http://localhost:3000');
+        res.redirect(process.env.CORS_ORIGIN);
     }
 }
