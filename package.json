@@ -1,8 +1,0 @@
-{
-  "dependencies": {
-    "passport-google-oauth20": "^2.0.0"
-  },
-  "devDependencies": {
-    "@types/passport-google-oauth20": "^2.0.16"
-  }
-}
