@@ -18,10 +18,10 @@ const Timer: React.FC = () => {
     );
     const queryClient = useQueryClient();
 
-    const scramble = useStore(state => state.scramble);
-    const puzzleType = useStore(state => state.puzzleType);
-    const setScramble = useStore(state => state.setScramble);
-    const addScrambleList = useStore(state => state.addScrambleList);
+    const scramble = useStore((state) => state.scramble);
+    const puzzleType = useStore((state) => state.puzzleType);
+    const setScramble = useStore((state) => state.setScramble);
+    const addScrambleList = useStore((state) => state.addScrambleList);
 
     const [time, setTime] = useState(new Date());
     const [currentTimer, setCurrentTimer] = useState(0);
@@ -33,7 +33,7 @@ const Timer: React.FC = () => {
         let now = new Date().getTime();
         let dt = now - lastUpdateTime;
 
-        setCurrentTimer(prev => prev + dt);
+        setCurrentTimer((prev) => prev + dt);
         setTime(new Date(currentTimer));
 
         lastUpdateTime = now;
@@ -58,7 +58,7 @@ const Timer: React.FC = () => {
         setTime(new Date(0));
     };
 
-    useKeypress(' ', async () => {
+    const handleClick = async () => {
         if (!started) {
             resetTimer();
             startTimer();
@@ -92,12 +92,13 @@ const Timer: React.FC = () => {
             addScrambleList(newScramble);
             setScramble(newScramble);
         }
-        setStarted(prev => !prev);
-    });
+        setStarted((prev) => !prev);
+    };
+    useKeypress(' ', handleClick);
 
     return (
         <div className={styles.container}>
-            <h1>
+            <h1 onClick={() => handleClick()} className="select-none">
                 {dayjs(currentTimer).utc().minute() > 0
                     ? dayjs(currentTimer)
                           .utc()
