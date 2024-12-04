@@ -5,6 +5,7 @@ import { AuthService } from './services/auth.service';
 import { SessionsModule } from '../modules';
 import { PassportModule } from '@nestjs/passport';
 import { GithubStrategy } from './github.strategy';
+import { GoogleStrategy } from './google.strategy';
 
 @Module({
     imports: [
@@ -13,6 +14,6 @@ import { GithubStrategy } from './github.strategy';
         SessionsModule,
     ],
     controllers: [AuthController],
-    providers: [AuthService, GithubStrategy],
+    providers: [AuthService, GithubStrategy, GoogleStrategy],
 })
 export class AuthModule {}
