@@ -10,6 +10,7 @@ declare global {
             COOKIE_DOMAIN: string;
             GITHUB_CLIENT_ID: string;
             GITHUB_CLIENT_SECRET: string;
+            SERVER_URL: string;
         }
     }
 }
