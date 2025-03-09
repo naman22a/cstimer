@@ -8,7 +8,7 @@ export const sessions = async (): Promise<Sessions> => {
         const res = await API.get('/sessions');
         return res.data;
     } catch (error) {
-        showError('Something went wrong');
+        console.error(error);
         return null;
     }
 };
@@ -18,7 +18,7 @@ export const currentSession = async (): Promise<Session> => {
         const res = await API.get('/sessions/current');
         return res.data;
     } catch (error) {
-        showError('Something went wrong');
+        console.error(error);
         return null;
     }
 };

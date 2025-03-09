@@ -9,7 +9,7 @@ export const getSolves = async (): Promise<Solve[]> => {
         const res = await API.get('solves');
         return res.data;
     } catch (error) {
-        showError();
+        console.error(error);
         return [];
     }
 };

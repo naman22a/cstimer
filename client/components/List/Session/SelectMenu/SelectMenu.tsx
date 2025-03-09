@@ -22,7 +22,7 @@ const SelectMenu: React.FC = () => {
         ['sessions', 'create'],
         api.sessions.createSession,
         {
-            onSuccess: async data => {
+            onSuccess: async (data) => {
                 if (data) {
                     await queryClient.invalidateQueries(['sessions']);
                     await queryClient.invalidateQueries([
@@ -39,7 +39,7 @@ const SelectMenu: React.FC = () => {
         ['sessions', 'delete'],
         api.sessions.deleteSession,
         {
-            onSuccess: async data => {
+            onSuccess: async (data) => {
                 if (data.ok) {
                     await queryClient.invalidateQueries(['sessions']);
                     await queryClient.invalidateQueries([
@@ -56,7 +56,7 @@ const SelectMenu: React.FC = () => {
         ['sessions', 'change'],
         api.sessions.changeSession,
         {
-            onSuccess: async data => {
+            onSuccess: async (data) => {
                 if (data.ok) {
                     await queryClient.invalidateQueries([
                         'sessions',
@@ -72,7 +72,7 @@ const SelectMenu: React.FC = () => {
         ['sessions', 'rename'],
         api.sessions.renameSession,
         {
-            onSuccess: async data => {
+            onSuccess: async (data) => {
                 if (data.ok) {
                     await queryClient.invalidateQueries(['sessions']);
                     await queryClient.invalidateQueries([
@@ -149,7 +149,7 @@ const SelectMenu: React.FC = () => {
         try {
             await queryClient.invalidateQueries(['solves']);
         } catch (error) {
-            showError();
+            console.error(error);
         } finally {
             toast.dismiss(toastId);
         }
@@ -165,7 +165,7 @@ const SelectMenu: React.FC = () => {
                 value={session?.id}
                 onChange={handleChange}
             >
-                {sessions?.map(session => (
+                {sessions?.map((session) => (
                     <option key={session.id} value={session.id}>
                         {session.name}
                     </option>
