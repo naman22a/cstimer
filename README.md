@@ -124,6 +124,10 @@ $ docker compose up --build
 $ docker compose down
 ```
 
+## 🤝 Contributions
+
+Contributions, issues, and suggestions are welcome! Feel free to fork the repository and submit pull requests.
+
 ## 📫 Stay in touch
 
 -   Author - [Naman Arora](https://namanarora.xyz)
