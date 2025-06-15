@@ -53,6 +53,49 @@ Cstimer is a rubik's cube timer web application it can calculate mean, averages,
     -   ⚙️ Dotenv - Supports environment variables
     -   🦋 Prettier - Opinionated Code Formatter
 
+## 📁 Project Structure
+
+```
+├── assets
+│   └── cstimer.png
+├── client
+│   ├── @types/
+│   ├── api/
+│   ├── components/
+│   ├── global/
+│   ├── hooks/
+│   ├── interfaces/
+│   ├── pages/
+│   ├── public/
+│   ├── store/
+│   ├── styles/
+│   ├── utils/
+│   ├── .env.example
+│   ├── next-env.d.ts
+│   ├── next.config.js
+│   ├── package.json
+│   ├── postcss.config.js
+│   ├── tailwind.config.js
+│   ├── tsconfig.json
+│   └── yarn.lock
+├── server
+│   ├── prisma/
+│   ├── src/
+│   ├── test/
+│   ├── typings/
+│   ├── .env.example
+│   ├── Dockerfile
+│   ├── docker-compose.yml
+│   ├── nest-cli.json
+│   ├── package.json
+│   ├── tsconfig.build.json
+│   ├── tsconfig.json
+│   └── yarn.lock
+├── .gitignore
+├── LICENSE
+├── README.md
+```
+
 ## 🚶🏻‍♂️ Getting started and 🏃🏻‍♂️ Running the app
 
 ```bash
