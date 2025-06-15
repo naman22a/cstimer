@@ -126,7 +126,7 @@ $ docker compose down
 
 ## 📫 Stay in touch
 
--   Author - [Naman Arora](https://namanarora.vercel.app)
+-   Author - [Naman Arora](https://namanarora.xyz)
 -   Twitter - [@naman_22a](https://twitter.com/naman_22a)
 
 ## 🗒️ License
