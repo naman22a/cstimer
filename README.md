@@ -121,7 +121,7 @@ $ yarn dev
 $ cd server
 
 # 8. Run Docker Compose
-$ docker compose up --build
+$ docker compose up
 
 # 9. Stop Docker Compose
 $ docker compose down
