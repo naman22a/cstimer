@@ -111,16 +111,19 @@ $ cp .env.example .env
 # 4. Move into client folder
 $ cd client
 
-# 5. Start the next js server
+# 5. Install client side dependencies
+$ yarn install
+
+# 6. Start the next js server
 $ yarn dev
 
-# 6. In a new terminal move into server folder
+# 7. In a new terminal move into server folder
 $ cd server
 
-# 7. Run Docker Compose
+# 8. Run Docker Compose
 $ docker compose up --build
 
-# 8. Stop Docker Compose
+# 9. Stop Docker Compose
 $ docker compose down
 ```
 
